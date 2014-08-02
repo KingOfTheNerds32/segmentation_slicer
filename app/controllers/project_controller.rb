@@ -21,14 +21,14 @@ GC::Profiler.clear
     # puts raw_data_hash.first
 
     # filter_data_hash = Hash.new
-    filter_data = []
+    filtered_data = []
     raw_data.each do |resp|
       if resp['Country'] == 1
-        filter_data << resp
+        filtered_data << resp
       end
     end
 
-    puts filter_data.length
+    puts filtered_data.length
 
     end_time = Time.now
     @time = end_time - start_time
