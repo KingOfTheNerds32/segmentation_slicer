@@ -1,0 +1,14 @@
+Filter_Group|Filter_Var|Value|Filter Label
+Country|Country||All Countries
+Country|Country|1|United States
+Country|Country|2|United Kingdom
+Country|Country|3|China
+Country|Country|4|Germany
+Country|Country|5|Australia
+Age|S3_DV||All Ages
+Age|S3_DV|1|18-24
+Age|S3_DV|2|25-34
+Age|S3_DV|3|35-44
+Age|S3_DV|4|45-54
+Age|S3_DV|5|55-60
+Age|S3_DV|6|61-70

@@ -36,7 +36,6 @@ GEM
     coffee-script-source (1.7.1)
     erubis (2.7.0)
     execjs (2.2.1)
-    fastercsv (1.5.5)
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (1.5.3)
@@ -120,7 +119,6 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
-  fastercsv
   jbuilder (~> 1.2)
   jquery-rails
   rails (= 4.0.3)
