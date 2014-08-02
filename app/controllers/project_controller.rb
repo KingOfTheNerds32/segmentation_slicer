@@ -7,7 +7,7 @@ class ProjectController < ApplicationController
 
   def show
     GC::Profiler.enable
-GC::Profiler.clear
+    GC::Profiler.clear
     start_time = Time.now
     file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
     raw_data = CSV.read(file_path, col_sep: '|', converters: :numeric, headers:true)
