@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project_id: 
+  metric_id: 
+  metric_text: MyString
+
+two:
+  project_id: 
+  metric_id: 
+  metric_text: MyString

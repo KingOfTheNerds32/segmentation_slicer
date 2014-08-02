@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  respondent_id: 
+  metric_id: 
+  value_id: 
+
+two:
+  respondent_id: 
+  metric_id: 
+  value_id: 
