@@ -1,4 +1,30 @@
 <%= @time %>
 <br>
-
+<% @filters.pluck(:group).uniq.each do |filter_group| %>
+    <li><%= filter_group %></li>
+    <ul>
+      <% @filters.where(:group => filter_group).each do |filter_item| %>
+        <li><%= filter_item.label %></li>
+      <% end %>
+    </ul>
+<% end %>
 <br>
+
+
+<%= form_tag '/project/' + @project_id + '/calculate' do %>
+  <% @filter_groups.each do |key, value| %>
+    <%= key %><br>
+    <select name=<%= key %>>
+      <% @filter_groups[key].each do |filter_item| %>
+        <% if filter_item[1].to_s != params[key] %>
+          <option selected value=<%= filter_item[1] %> ><%= filter_item[0] %></option>
+        <% else %>
+          <option value=<%= filter_item[1] %> ><%= filter_item[0] %></option>
+        <% end %>
+      <% end %> 
+    </select>
+    <br>
+  <% end %>
+  <br>
+  <%= submit_tag ('Update Project' ) %>
+<% end %>

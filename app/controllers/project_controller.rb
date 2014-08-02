@@ -5,22 +5,45 @@ class ProjectController < ApplicationController
     @projects = Project.all
   end
 
+  def calculate
+    redirect_link = '/project/' + params[:project_id]
+    redirect_to  redirect_link
+  end
+
   def show
     GC::Profiler.enable
     GC::Profiler.clear
     start_time = Time.now
+
+    #General housekeeping
+    @project_id = params[:project_id]
+    project_info = Project.find_by project_id: @project_id
+    project_name = project_info.project_name
+    @full_project_name = @project_id.to_s + ": " + project_name
+
+    puts params.inspect
+    puts params['Country']
+
+
+    #Load the data into memory
     file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
     raw_data = CSV.read(file_path, col_sep: '|', converters: :numeric, headers:true)
-    #@raw_data = CSV.read(file_path, col_sep: '|', converters: :numeric)
 
-    # raw_data_hash = Hash.new
 
-    # raw_data.each do |resp|
-    #   raw_data_hash[resp['Respondent_ID']] = resp
-    # end
-    # puts raw_data_hash.first
+    #Build the filters for the project
+    @filters = Filter.where(:project_id => @project_id)
+    @filter_groups = Hash.new
+    @filters.pluck(:group).uniq.each do |filter_group|
+      filter_list = []
+      @filters.where(:group => filter_group).each do |filter_item|
+        filter_list << [filter_item.label, filter_item.filter_val]
+      end
+      @filter_groups[filter_group] = filter_list
+      #puts @filter_groups[filter_group].inspect
+    end
 
-    # filter_data_hash = Hash.new
+
+    #Filter the data to match the filter context
     filtered_data = []
     raw_data.each do |resp|
       if resp['Country'] == 1
@@ -28,7 +51,7 @@ class ProjectController < ApplicationController
       end
     end
 
-    puts filtered_data.length
+    #puts filtered_data.length
 
     end_time = Time.now
     @time = end_time - start_time
