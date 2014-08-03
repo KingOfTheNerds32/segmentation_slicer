@@ -1,9 +1,10 @@
 class CreateMetrics < ActiveRecord::Migration
   def change
     create_table :metrics do |t|
-      t.references :project, index: true
-      t.references :metric, index: true
-      t.string :metric_text
+      t.integer :project_id
+      t.string :bucket
+      t.string :var
+      t.string :label
 
       t.timestamps
     end

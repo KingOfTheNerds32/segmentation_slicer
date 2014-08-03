@@ -1,0 +1,300 @@
+bucket|var|label
+Segment Classification|SEG01|Typing Tool Classification: Family Time
+Segment Classification|SEG02|Typing Tool Classification: Romantic Getaway
+Segment Classification|SEG03|Typing Tool Classification: Well-being
+Segment Classification|SEG04|Typing Tool Classification: Rest and Go
+Segment Classification|SEG05|Typing Tool Classification: Social Identity
+Segment Classification|SEG06|Typing Tool Classification: Business Productivity
+Segment Classification|SEG07|Typing Tool Classification: Building Business Interactions
+Segment Classification|SEG08|Typing Tool Classification: Short Break Experience
+Segment Classification|SEG09|Typing Tool Classification: Mixing Business with Pleasure
+Needs|ND01|The hotel will help me on my journey to business success
+Needs|ND02|I will be able to work productively in my room
+Needs|ND03|The hotel enables me to have productive meetings
+Needs|ND04|The hotel staff will care about my well-being
+Needs|ND05|My children can be looked after in the hotel
+Needs|ND06|My children can be happily entertained at the hotel
+Needs|ND07|I can enjoy an excellent bar
+Needs|ND08|I can have a romantic time with someone special
+Needs|ND09|The hotel will make it easy to make healthy food and beverage choices
+Needs|ND10|I will be able to walk to what I need (such as sights, stores, or public transportation)
+Needs|ND11|The hotel offers a variety of spa treatments personalized to my needs
+Needs|ND12|I can indulge myself
+Needs|ND13|It will suit my needs for a one-night stay
+Needs|ND14|I can bond with friends or family
+Needs|ND15|I will be paying less than similar hotels in the area
+Needs|ND16|The hotel facilities (e.g., gym, pool, etc.)  will be very inviting
+Needs|ND17|The hotel will just be a place for me to sleep overnight
+Needs|ND18|I will feel like I am successful
+Needs|ND19|My children will feel welcomed
+Needs|ND20|I can enjoy excellent food
+Needs|ND21|My spouse/companion/partner will be happy
+Needs|ND22|I can escape from everyday life
+Needs|ND23|People will be impressed with my choice of hotel
+Needs|ND24|The simplicity of the hotel makes me feel sensible
+Needs|ND25|The room feels comfortable
+Needs|ND26|The hotel will have social spaces where I can meet new people
+Needs|ND27|The hotel makes me feel like a member of the family
+Needs|ND28|The hotel will help me have an adventurous experience
+Needs|ND29|I will receive first class treatment
+Needs|ND30|I can pursue my own personal hobbies
+Needs|ND31|[ThR] Food and beverages at the hotel are priced fairly 
+Needs|ND32|[ThR] For breakfast in the hotel, I can eat what I want, when and where I want 
+Needs|ND33|[ThR] Has beautiful landscaping/views 
+Needs|ND34|[ThR] I am able to speak directly with a person at the hotel when I am booking my stay 
+Needs|ND35|[ThR] I can pursue my own personal hobbies 
+Needs|ND36|[ThR] I know I will not be charged extra for amenities such as calls, breakfast, Internet, gym, etc, 
+Needs|ND37|[ThR] I will always have access to a manager or person able to solve my problems 
+Needs|ND38|[ThR] I will be able to easily earn and use loyalty points 
+Needs|ND39|[ThR] I will be able to exercise at any time of day 
+Needs|ND40|[ThR] I will be able to host my guests in a private setting 
+Needs|ND41|[ThR] I will be able to re-energize myself 
+Needs|ND42|[ThR] I will receive first class treatment 
+Needs|ND43|[ThR] It will be easy to find and use everything in my room 
+Needs|ND44|[ThR] It will be easy to find my way around the hotel 
+Needs|ND45|[ThR] It will have a special area set aside for the most important customers 
+Needs|ND46|[ThR] My needs will be catered to immediately 
+Needs|ND47|[ThR] The hotel can accommodate for personal circumstances (allergies, disability, etc.) 
+Needs|ND48|[ThR] The hotel is a stylish place to stay 
+Needs|ND49|[ThR] The hotel makes every effort to fix and compensate for any problems that occur 
+Needs|ND50|[ThR] The hotel offers international experience and knowledge 
+Needs|ND51|[ThR] The hotel takes extra steps to ensure the safety of what I eat and drink 
+Needs|ND52|[ThR] The hotel will have a variety of eating options 
+Needs|ND53|[ThR] The hotel will have social spaces where I can meet new people 
+Needs|ND54|[ThR] The hotel will provide a variety of experiences from property to property  
+Needs|ND55|[ThR] The knowledgeable concierge will assist me with making arrangements during my stay 
+Needs|ND56|[ThR] The public areas will be very inviting 
+Needs|ND57|[ThR] The staff will provide useful information about the area 
+Needs|ND58|[ThR] By staying at the hotel, I know I am actively making a positive difference for the environment  
+Needs|ND59|[ThR] I can experience more luxury than other similarly priced hotels 
+Needs|ND60|[ThR] I will enjoy relaxing all day 
+Needs|ND61|[ThR] I will feel at ease at the hotel 
+Needs|ND62|[ThR] I will feel confident that I can get things done 
+Needs|ND63|[ThR] I will feel connected to the natural environment 
+Needs|ND64|[ThR] I will feel like I am at home 
+Needs|ND65|[ThR] I will feel well rested 
+Needs|ND66|[ThR] I will learn something interesting about my trip location 
+Needs|ND67|[ThR] The hotel makes it easy for me to do my part for society / environment with no trade offs 
+Needs|ND68|[ThR] The hotel provides a unique experience 
+Needs|ND69|[ThR] The hotel will help me to create a memorable experience 
+Dimension Membership|DIM01|Affordability
+Dimension Membership|DIM02|Facilities and Experiences
+Dimension Membership|DIM03|Local Neighborhood Experience
+Dimension Membership|DIM04|Sense of Place
+Dimension Membership|DIM05|Rest, Relax, Rejuvenate
+Dimension Membership|DIM06|Carefree Romance
+Dimension Membership|DIM07|Culinary Experience
+Dimension Membership|DIM08|Social/Environmental Responsibility
+Dimension Membership|DIM09|International Standards of Luxury
+Dimension Membership|DIM10|Health and Diet
+Dimension Membership|DIM11|All About the Kids
+Dimension Membership|DIM12|Family Bonding and Memories
+Dimension Membership|DIM13|Risk Reduction
+Dimension Membership|DIM14|Social Business
+Dimension Membership|DIM15|Business Success
+Dimension Membership|DIM16|Recognition and Rewards
+Dimension Membership|DIM17|Prestigious Experience
+Dimension Membership|DIM18|Comforts of Home
+Dimension Membership|DIM19|Business Efficiency
+Dimension Membership|DIM20|Leisure Efficiency
+Dimension Membership|DIM21|Affirmation of Self
+Travel Behaviors|TB01|Means of Transportation: Car
+Travel Behaviors|TB02|Means of Transportation: Airplane
+Travel Behaviors|TB03|Means of Transportation: Train
+Travel Behaviors|TB04|Means of Transportation: Ship/Boat/Ferry
+Travel Behaviors|TB05|Means of Transportation: Some other means
+Travel Behaviors|TB06|Type of Hotel [ThR]: Urban
+Travel Behaviors|TB07|Type of Hotel [ThR]: Suburban
+Travel Behaviors|TB08|Type of Hotel [ThR]: Rural
+Travel Behaviors|TB09|Type of Hotel [ThR]: Resort destination
+Travel Behaviors|TB10|Type of Hotel [ThR]: Airport
+Travel Behaviors|TB11|Type of Hotel [ThR]: On highway
+Travel Behaviors|TB12|Type of Resort [ThR]:Beach Resort
+Travel Behaviors|TB13|Type of Resort [ThR]:Desert Resort
+Travel Behaviors|TB14|Type of Resort [ThR]:Mountain/Ski Resort
+Travel Behaviors|TB15|Type of Resort [ThR]:City Center
+Travel Behaviors|TB16|Type of Resort [ThR]:Family Attraction/Amusement Park
+Travel Behaviors|TB17|Type of Resort [ThR]:Lake
+Travel Behaviors|TB18|Type of Resort [ThR]:Casino
+Travel Behaviors|TB19|Type of Resort [ThR]:Sports Resort (Golf, tennis, etc.)
+Travel Behaviors|TB20|Type of Resort [ThR]:Spa or Wellness Resort
+Travel Behaviors|TB21|Type of Resort [ThR]:Adventure Resort
+Travel Behaviors|TB22|Type of Resort [ThR]:Other
+Travel Behaviors|TB23|Hotel Amenities Used: Exercise equipment/Gym
+Travel Behaviors|TB24|Hotel Amenities Used: Room Service
+Travel Behaviors|TB25|Hotel Amenities Used: Pool
+Travel Behaviors|TB26|Hotel Amenities Used: Business center
+Travel Behaviors|TB27|Hotel Amenities Used: Meeting space
+Travel Behaviors|TB28|Hotel Amenities Used: Internet (wired)
+Travel Behaviors|TB29|Hotel Amenities Used: Internet (wireless)
+Travel Behaviors|TB30|Hotel Amenities Used: Executive/club lounge
+Travel Behaviors|TB31|Hotel Amenities Used: On-site sports (golf, tennis, etc.)
+Travel Behaviors|TB32|Hotel Amenities Used: Spa facilities
+Travel Behaviors|TB33|Hotel Amenities Used: Kids club
+Travel Behaviors|TB34|Hotel Amenities Used: Transportation services
+Travel Behaviors|TB35|Hotel Amenities Used: Lobby (with others)
+Travel Behaviors|TB36|Hotel Amenities Used: Lobby (alone)
+Travel Behaviors|TB37|Hotel Amenities Used: Nightclub/lounge
+Travel Behaviors|TB38|Hotel Amenities Used: Restaurant attached to the property
+Travel Behaviors|TB39|Hotel Amenities Used: Restaurant within the property
+Travel Behaviors|TB40|Hotel Amenities Used: Bar
+Travel Behaviors|TB41|Hotel Amenities Used: Retail store on hotel premises
+Travel Behaviors|TB42|Hotel Amenities Used: Gift shop
+Travel Behaviors|TB43|Hotel Amenities Used: Laundry/dry cleaning
+Travel Behaviors|TB44|Hotel Amenities Used: Valet parking
+Travel Behaviors|TB45|Hotel Amenities Used: None of the above
+Hotel Stayed|HS01|Hotel Stayed [ThR]:Candlewood Suites
+Hotel Stayed|HS02|Hotel Stayed [ThR]:Crowne Plaza
+Hotel Stayed|HS03|Hotel Stayed [ThR]:Holiday Inn
+Hotel Stayed|HS04|Hotel Stayed [ThR]:Holiday Inn Express
+Hotel Stayed|HS05|Hotel Stayed [ThR]:InterContinental
+Hotel Stayed|HS06|Hotel Stayed [ThR]:Staybridge Suites
+Hotel Stayed|HS07|Hotel Stayed [ThR]:Aloft
+Hotel Stayed|HS08|Hotel Stayed [ThR]:Andaz
+Hotel Stayed|HS09|Hotel Stayed [ThR]:Best Western
+Hotel Stayed|HS10|Hotel Stayed [ThR]:Comfort Inn
+Hotel Stayed|HS11|Hotel Stayed [ThR]:Conrad
+Hotel Stayed|HS12|Hotel Stayed [ThR]:Courtyard by Marriott
+Hotel Stayed|HS13|Hotel Stayed [ThR]:Etap Hotel
+Hotel Stayed|HS14|Hotel Stayed [ThR]:Extended Stay America
+Hotel Stayed|HS15|Hotel Stayed [ThR]:Fairfield Inn
+Hotel Stayed|HS16|Hotel Stayed [ThR]:Fairmont
+Hotel Stayed|HS17|Hotel Stayed [ThR]:Four Points by Sheraton
+Hotel Stayed|HS18|Hotel Stayed [ThR]:Hampton Inn
+Hotel Stayed|HS19|Hotel Stayed [ThR]:Hanting
+Hotel Stayed|HS20|Hotel Stayed [ThR]:Hawthorn Suites
+Hotel Stayed|HS21|Hotel Stayed [ThR]:Hilton
+Hotel Stayed|HS22|Hotel Stayed [ThR]:Hilton Garden Inn
+Hotel Stayed|HS23|Hotel Stayed [ThR]:Home 2
+Hotel Stayed|HS24|Hotel Stayed [ThR]:Homewood Suites
+Hotel Stayed|HS25|Hotel Stayed [ThR]:Hotel Indigo
+Hotel Stayed|HS26|Hotel Stayed [ThR]:Hyatt
+Hotel Stayed|HS27|Hotel Stayed [ThR]:Hyatt Summerfield Suites
+Hotel Stayed|HS28|Hotel Stayed [ThR]:Ibis Hotel
+Hotel Stayed|HS29|Hotel Stayed [ThR]:JinJiang Hotels
+Hotel Stayed|HS30|Hotel Stayed [ThR]:JW Marriott
+Hotel Stayed|HS31|Hotel Stayed [ThR]:Kimpton
+Hotel Stayed|HS32|Hotel Stayed [ThR]:La Quinta
+Hotel Stayed|HS33|Hotel Stayed [ThR]:Le Meridien
+Hotel Stayed|HS34|Hotel Stayed [ThR]:Marriott
+Hotel Stayed|HS35|Hotel Stayed [ThR]:Mercure
+Hotel Stayed|HS36|Hotel Stayed [ThR]:Motel One
+Hotel Stayed|HS37|Hotel Stayed [ThR]:Novotel
+Hotel Stayed|HS38|Hotel Stayed [ThR]:Park Inn
+Hotel Stayed|HS39|Hotel Stayed [ThR]:Premier Inn
+Hotel Stayed|HS40|Hotel Stayed [ThR]:Radisson
+Hotel Stayed|HS41|Hotel Stayed [ThR]:Residence Inn
+Hotel Stayed|HS42|Hotel Stayed [ThR]:Shangri-La
+Hotel Stayed|HS43|Hotel Stayed [ThR]:Sheraton
+Hotel Stayed|HS44|Hotel Stayed [ThR]:Sofitel
+Hotel Stayed|HS45|Hotel Stayed [ThR]:Starway
+Hotel Stayed|HS46|Hotel Stayed [ThR]:Towne Place Suites (Marriott)
+Hotel Stayed|HS47|Hotel Stayed [ThR]:Travelodge
+Hotel Stayed|HS48|Hotel Stayed [ThR]:W Hotel
+Hotel Stayed|HS49|Hotel Stayed [ThR]:Westin
+Unlikely to Consider|UC01|Unlikely to Consider [ThR]: Candlewood Suites
+Unlikely to Consider|UC02|Unlikely to Consider [ThR]: Crowne Plaza
+Unlikely to Consider|UC03|Unlikely to Consider [ThR]: Holiday Inn
+Unlikely to Consider|UC04|Unlikely to Consider [ThR]: Holiday Inn Express
+Unlikely to Consider|UC05|Unlikely to Consider [ThR]: InterContinental
+Unlikely to Consider|UC06|Unlikely to Consider [ThR]: Staybridge Suites
+Unlikely to Consider|UC07|Unlikely to Consider [ThR]: Aloft
+Unlikely to Consider|UC08|Unlikely to Consider [ThR]: Andaz
+Unlikely to Consider|UC09|Unlikely to Consider [ThR]: Best Western
+Unlikely to Consider|UC10|Unlikely to Consider [ThR]: Comfort Inn
+Unlikely to Consider|UC11|Unlikely to Consider [ThR]: Conrad
+Unlikely to Consider|UC12|Unlikely to Consider [ThR]: Courtyard by Marriott
+Unlikely to Consider|UC13|Unlikely to Consider [ThR]: Etap Hotel
+Unlikely to Consider|UC14|Unlikely to Consider [ThR]: Extended Stay America
+Unlikely to Consider|UC15|Unlikely to Consider [ThR]: Fairfield Inn
+Unlikely to Consider|UC16|Unlikely to Consider [ThR]: Fairmont
+Unlikely to Consider|UC17|Unlikely to Consider [ThR]: Four Points by Sheraton
+Unlikely to Consider|UC18|Unlikely to Consider [ThR]: Hampton Inn
+Unlikely to Consider|UC19|Unlikely to Consider [ThR]: Hanting
+Unlikely to Consider|UC20|Unlikely to Consider [ThR]: Hawthorn Suites
+Unlikely to Consider|UC21|Unlikely to Consider [ThR]: Hilton
+Unlikely to Consider|UC22|Unlikely to Consider [ThR]: Hilton Garden Inn
+Unlikely to Consider|UC23|Unlikely to Consider [ThR]: Home 2
+Unlikely to Consider|UC24|Unlikely to Consider [ThR]: Homewood Suites
+Unlikely to Consider|UC25|Unlikely to Consider [ThR]: Hotel Indigo
+Unlikely to Consider|UC26|Unlikely to Consider [ThR]: Hyatt
+Unlikely to Consider|UC27|Unlikely to Consider [ThR]: Hyatt Summerfield Suites
+Unlikely to Consider|UC28|Unlikely to Consider [ThR]: Ibis Hotel
+Unlikely to Consider|UC29|Unlikely to Consider [ThR]: JinJiang Hotels
+Unlikely to Consider|UC30|Unlikely to Consider [ThR]: JW Marriott
+Unlikely to Consider|UC31|Unlikely to Consider [ThR]: Kimpton
+Unlikely to Consider|UC32|Unlikely to Consider [ThR]: La Quinta
+Unlikely to Consider|UC33|Unlikely to Consider [ThR]: Le Meridien
+Unlikely to Consider|UC34|Unlikely to Consider [ThR]: Marriott
+Unlikely to Consider|UC35|Unlikely to Consider [ThR]: Mercure
+Unlikely to Consider|UC36|Unlikely to Consider [ThR]: Motel One
+Unlikely to Consider|UC37|Unlikely to Consider [ThR]: Novotel
+Unlikely to Consider|UC38|Unlikely to Consider [ThR]: Park Inn
+Unlikely to Consider|UC39|Unlikely to Consider [ThR]: Premier Inn
+Unlikely to Consider|UC40|Unlikely to Consider [ThR]: Radisson
+Unlikely to Consider|UC41|Unlikely to Consider [ThR]: Residence Inn
+Unlikely to Consider|UC42|Unlikely to Consider [ThR]: Shangri-La
+Unlikely to Consider|UC43|Unlikely to Consider [ThR]: Sheraton
+Unlikely to Consider|UC44|Unlikely to Consider [ThR]: Sofitel
+Unlikely to Consider|UC45|Unlikely to Consider [ThR]: Starway
+Unlikely to Consider|UC46|Unlikely to Consider [ThR]: Towne Place Suites (Marriott)
+Unlikely to Consider|UC47|Unlikely to Consider [ThR]: Travelodge
+Unlikely to Consider|UC48|Unlikely to Consider [ThR]: W Hotel
+Unlikely to Consider|UC49|Unlikely to Consider [ThR]: Westin
+Likely to Consider|LC01|Likely to Consider [ThR]: Candlewood Suites
+Likely to Consider|LC02|Likely to Consider [ThR]: Crowne Plaza
+Likely to Consider|LC03|Likely to Consider [ThR]: Holiday Inn
+Likely to Consider|LC04|Likely to Consider [ThR]: Holiday Inn Express
+Likely to Consider|LC05|Likely to Consider [ThR]: InterContinental
+Likely to Consider|LC06|Likely to Consider [ThR]: Staybridge Suites
+Likely to Consider|LC07|Likely to Consider [ThR]: Aloft
+Likely to Consider|LC08|Likely to Consider [ThR]: Andaz
+Likely to Consider|LC09|Likely to Consider [ThR]: Best Western
+Likely to Consider|LC10|Likely to Consider [ThR]: Comfort Inn
+Likely to Consider|LC11|Likely to Consider [ThR]: Conrad
+Likely to Consider|LC12|Likely to Consider [ThR]: Courtyard by Marriott
+Likely to Consider|LC13|Likely to Consider [ThR]: Etap Hotel
+Likely to Consider|LC14|Likely to Consider [ThR]: Extended Stay America
+Likely to Consider|LC15|Likely to Consider [ThR]: Fairfield Inn
+Likely to Consider|LC16|Likely to Consider [ThR]: Fairmont
+Likely to Consider|LC17|Likely to Consider [ThR]: Four Points by Sheraton
+Likely to Consider|LC18|Likely to Consider [ThR]: Hampton Inn
+Likely to Consider|LC19|Likely to Consider [ThR]: Hanting
+Likely to Consider|LC20|Likely to Consider [ThR]: Hawthorn Suites
+Likely to Consider|LC21|Likely to Consider [ThR]: Hilton
+Likely to Consider|LC22|Likely to Consider [ThR]: Hilton Garden Inn
+Likely to Consider|LC23|Likely to Consider [ThR]: Home 2
+Likely to Consider|LC24|Likely to Consider [ThR]: Homewood Suites
+Likely to Consider|LC25|Likely to Consider [ThR]: Hotel Indigo
+Likely to Consider|LC26|Likely to Consider [ThR]: Hyatt
+Likely to Consider|LC27|Likely to Consider [ThR]: Hyatt Summerfield Suites
+Likely to Consider|LC28|Likely to Consider [ThR]: Ibis Hotel
+Likely to Consider|LC29|Likely to Consider [ThR]: JinJiang Hotels
+Likely to Consider|LC30|Likely to Consider [ThR]: JW Marriott
+Likely to Consider|LC31|Likely to Consider [ThR]: Kimpton
+Likely to Consider|LC32|Likely to Consider [ThR]: La Quinta
+Likely to Consider|LC33|Likely to Consider [ThR]: Le Meridien
+Likely to Consider|LC34|Likely to Consider [ThR]: Marriott
+Likely to Consider|LC35|Likely to Consider [ThR]: Mercure
+Likely to Consider|LC36|Likely to Consider [ThR]: Motel One
+Likely to Consider|LC37|Likely to Consider [ThR]: Novotel
+Likely to Consider|LC38|Likely to Consider [ThR]: Park Inn
+Likely to Consider|LC39|Likely to Consider [ThR]: Premier Inn
+Likely to Consider|LC40|Likely to Consider [ThR]: Radisson
+Likely to Consider|LC41|Likely to Consider [ThR]: Residence Inn
+Likely to Consider|LC42|Likely to Consider [ThR]: Shangri-La
+Likely to Consider|LC43|Likely to Consider [ThR]: Sheraton
+Likely to Consider|LC44|Likely to Consider [ThR]: Sofitel
+Likely to Consider|LC45|Likely to Consider [ThR]: Starway
+Likely to Consider|LC46|Likely to Consider [ThR]: Towne Place Suites (Marriott)
+Likely to Consider|LC47|Likely to Consider [ThR]: Travelodge
+Likely to Consider|LC48|Likely to Consider [ThR]: W Hotel
+Likely to Consider|LC49|Likely to Consider [ThR]: Westin
+Brand Target Classification|BTS01|Extended Stayer
+Brand Target Classification|BTS02|Boutique Stayer
+Brand Target Classification|BTS03|Intercontinental Core Target
+Brand Target Classification|BTS04|Contemporary Traveler
+Brand Target Classification|BTS05|Smart Traveler
+Brand Target Classification|BTS06|Striver
+Brand Target Classification|BTS07|HMT
+Brand Target Classification|BTS08|Bamboo

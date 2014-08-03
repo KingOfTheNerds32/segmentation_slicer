@@ -1,15 +1,6 @@
 <%= @time %>
 <br>
-<% @filters.pluck(:group).uniq.each do |filter_group| %>
-    <li><%= filter_group %></li>
-    <ul>
-      <% @filters.where(:group => filter_group).each do |filter_item| %>
-        <li><%= filter_item.label %></li>
-      <% end %>
-    </ul>
-<% end %>
 <br>
-
 
 <%= form_tag '/project/' + @project_id + '/calculate' do %>
   <% @filter_groups.each do |key, value| %>
@@ -28,3 +19,11 @@
   <br>
   <%= submit_tag ('Update Project' ) %>
 <% end %>
+
+<% @metric_groups.each do |key, value|%>
+  <h4><%= key %></h4>
+  <% @metric_groups[key].each do |metric_item| %>
+    <%= metric_item[1] + ': ' + metric_item[0] %><br>
+  <% end %>
+<% end %>
+

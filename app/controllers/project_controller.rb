@@ -6,8 +6,6 @@ class ProjectController < ApplicationController
   end
 
   def calculate
-    puts 'ORIG PARAMS'
-    params.inspect
     redirect_link = '/project/' + params[:project_id]
     session[:info] = params
     redirect_to redirect_link 
@@ -24,11 +22,6 @@ class ProjectController < ApplicationController
     project_info = Project.find_by project_id: @project_id
     project_name = project_info.project_name
     @full_project_name = @project_id.to_s + ": " + project_name
-
-    puts 'PARAMS'
-    puts params.inspect
-    puts params['Country']
-
 
     #Load the data into memory
     file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
@@ -47,8 +40,18 @@ class ProjectController < ApplicationController
       #puts @filter_groups[filter_group].inspect
     end
 
+    #Build the Metrics for the project
+    @metrics = Metric.where(:project_id => @project_id)
+    @metric_groups = Hash.new
+    @metrics.pluck(:bucket).uniq.each do |metric_group|
+      metric_list = []
+      @metrics.where(:bucket => metric_group).each do |metric_item|
+        metric_list << [metric_item.label, metric_item.var]
+      end
+      @metric_groups[metric_group] = metric_list
+    end
 
-    #Filter the data to match the filter context
+    #TODO: Filter the data to match the filter context
     filtered_data = []
     raw_data.each do |resp|
       if resp['Country'] == 1
