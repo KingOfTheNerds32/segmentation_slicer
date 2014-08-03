@@ -2,7 +2,23 @@
 <br>
 <br>
 
+<% @banner_groups[@info['banner']].each do |banner_item| %>
+  <%= banner_item[0] %><br>
+<% end %>
+
 <%= form_tag '/project/' + @project_id + '/calculate' do %>
+  <h3>Banner:</h3>
+  <select name='banner'>
+    <% @banner_groups.each do |key, value| %>
+      <% if key == @info['banner'] %>
+        <option selected value=<%= key %> ><%= key %></option>
+      <% else %>
+        <option value=<%= key %> ><%= key %></option>
+      <% end %>
+    <% end %>
+  </select>
+  <br>
+  <h3>Filters</h3>
   <% @filter_groups.each do |key, value| %>
     <%= key %><br>
     <select name=<%= key %>>

@@ -29,7 +29,7 @@ class ProjectController < ApplicationController
 
 
     #Build the filters for the project
-    @filters = Filter.where(:project_id => @project_id)
+    @filters = Filter.where(:project_id => @project_id, :filter => true)
     @filter_groups = Hash.new
     @filters.pluck(:group).uniq.each do |filter_group|
       filter_list = []
@@ -38,6 +38,17 @@ class ProjectController < ApplicationController
       end
       @filter_groups[filter_group] = filter_list
       #puts @filter_groups[filter_group].inspect
+    end
+
+    #Build the banners for the project
+    @banners = Filter.where(:project_id => @project_id, :banner => true)
+    @banner_groups = Hash.new
+    @banners.pluck(:group).uniq.each do |banner_group|
+      banner_list = []
+      @banners.where(:group => banner_group).each do |banner_item|
+        banner_list << [banner_item.label, banner_item.filter_val]
+      end
+      @banner_groups[banner_group] = banner_list 
     end
 
     #Build the Metrics for the project

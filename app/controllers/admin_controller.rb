@@ -18,6 +18,7 @@ class AdminController < ApplicationController
 
     filter_data.each do |filter|
       filter['project_id'] = @project_id
+      puts filter.inspect
       Filter.create!(filter.to_hash)
     end
 

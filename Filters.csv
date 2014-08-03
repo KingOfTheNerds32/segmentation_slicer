@@ -1,14 +1,14 @@
-group|var|filter_val|label
-Country|Country||All Countries
-Country|Country|1|United States
-Country|Country|2|United Kingdom
-Country|Country|3|China
-Country|Country|4|Germany
-Country|Country|5|Australia
-Age|S3_DV||All Ages
-Age|S3_DV|1|18-24
-Age|S3_DV|2|25-34
-Age|S3_DV|3|35-44
-Age|S3_DV|4|45-54
-Age|S3_DV|5|55-60
-Age|S3_DV|6|61-70
+group|var|filter_val|label|filter|banner
+Country|Country||All Countries|TRUE|TRUE
+Country|Country|1|United States|TRUE|TRUE
+Country|Country|2|United Kingdom|TRUE|TRUE
+Country|Country|3|China|TRUE|TRUE
+Country|Country|4|Germany|TRUE|TRUE
+Country|Country|5|Australia|TRUE|TRUE
+Age|S3_DV||All Ages|TRUE|TRUE
+Age|S3_DV|1|18-24|TRUE|TRUE
+Age|S3_DV|2|25-34|TRUE|TRUE
+Age|S3_DV|3|35-44|TRUE|TRUE
+Age|S3_DV|4|45-54|TRUE|TRUE
+Age|S3_DV|5|55-60|TRUE|TRUE
+Age|S3_DV|6|61-70|TRUE|TRUE

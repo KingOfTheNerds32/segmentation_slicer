@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140803170456) do
+ActiveRecord::Schema.define(version: 20140803221411) do
 
   create_table "filters", force: true do |t|
     t.integer "project_id"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20140803170456) do
     t.string  "var"
     t.integer "filter_val"
     t.string  "label"
+    t.boolean "filter"
+    t.boolean "banner"
   end
 
   create_table "metrics", force: true do |t|
