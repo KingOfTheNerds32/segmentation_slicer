@@ -6,14 +6,18 @@ class ProjectController < ApplicationController
   end
 
   def calculate
+    puts 'ORIG PARAMS'
+    params.inspect
     redirect_link = '/project/' + params[:project_id]
-    redirect_to  redirect_link
+    session[:info] = params
+    redirect_to redirect_link 
   end
 
   def show
     GC::Profiler.enable
     GC::Profiler.clear
     start_time = Time.now
+    @info = session[:info]
 
     #General housekeeping
     @project_id = params[:project_id]
@@ -21,6 +25,7 @@ class ProjectController < ApplicationController
     project_name = project_info.project_name
     @full_project_name = @project_id.to_s + ": " + project_name
 
+    puts 'PARAMS'
     puts params.inspect
     puts params['Country']
 
@@ -55,7 +60,7 @@ class ProjectController < ApplicationController
 
     end_time = Time.now
     @time = end_time - start_time
-    GC::Profiler.report
+    #GC::Profiler.report
   end
 
   def show_old
