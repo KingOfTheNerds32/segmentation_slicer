@@ -34,7 +34,7 @@ class ProjectController < ApplicationController
     @filters.pluck(:group).uniq.each do |filter_group|
       filter_list = []
       @filters.where(:group => filter_group).each do |filter_item|
-        filter_list << [filter_item.label, filter_item.filter_val]
+        filter_list << [filter_item.label, filter_item.filter_val, filter_item.var]
       end
       @filter_groups[filter_group] = filter_list
       #puts @filter_groups[filter_group].inspect
@@ -46,7 +46,7 @@ class ProjectController < ApplicationController
     @banners.pluck(:group).uniq.each do |banner_group|
       banner_list = []
       @banners.where(:group => banner_group).each do |banner_item|
-        banner_list << [banner_item.label, banner_item.filter_val]
+        banner_list << [banner_item.label, banner_item.filter_val, banner_item.var]
       end
       @banner_groups[banner_group] = banner_list 
     end
@@ -62,15 +62,44 @@ class ProjectController < ApplicationController
       @metric_groups[metric_group] = metric_list
     end
 
+    #puts filtered_data.length
+    if @info == nil
+      @info = Hash.new
+    end
+    puts @info
     #TODO: Filter the data to match the filter context
-    filtered_data = []
+    filtered_data = Hash.new
     raw_data.each do |resp|
-      if resp['Country'] == 1
-        filtered_data << resp
+      filtered_data[resp['Respondent_ID']] = resp
+    end
+
+    @filters.pluck(:group).uniq.each do |filter_group|
+      if @info.has_key? (filter_group)
+
+        puts 'NOW CHECKING FILTER FOR: ' + filter_group
+
+        filter_info = @info[filter_group].split(',')
+        filter_val = nil
+        filter_var = nil
+        filter_var = filter_info[0]
+        filter_val = filter_info[1].to_i
+
+        puts 'FILTER SETTING: ' + filter_info.inspect
+
+        if filter_val != nil
+          puts 'NOW APPLYING FILTER FOR: ' + filter_group
+          filtered_data.each do |key, resp|
+            if resp[filter_var] != filter_val
+              filtered_data.delete(resp['Respondent_ID'])
+            end
+          end
+          puts 'PEEP COUNT: ' + filtered_data.keys.count.to_s
+        else
+          #puts filter_group + ' FILTER does NOT have VALUE: ' + filter_info.inspect
+        end
       end
     end
 
-    #puts filtered_data.length
 
     end_time = Time.now
     @time = end_time - start_time
