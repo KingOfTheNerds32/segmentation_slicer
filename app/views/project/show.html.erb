@@ -25,7 +25,7 @@
     <%= key %><br>
     <select name=<%= key %>>
       <% @filter_groups[key].each do |filter_item| %>
-        <% if filter_item[1].to_s == @info[key] %>
+        <% if filter_item[2] + ',' + filter_item[1].to_s == @info[key] %>
           <option selected value=<%= filter_item[2] + ',' + filter_item[1].to_s %> ><%= filter_item[0] %></option>
         <% else %>
           <option value=<%= filter_item[2] + ',' + filter_item[1].to_s  %> ><%= filter_item[0] %></option>

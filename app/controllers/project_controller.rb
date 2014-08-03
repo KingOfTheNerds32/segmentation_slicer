@@ -100,6 +100,8 @@ class ProjectController < ApplicationController
       end
     end
 
+    puts 'FINAL PEEP COUNT: ' + filtered_data.keys.count.to_s
+    puts @info.inspect
 
     end_time = Time.now
     @time = end_time - start_time
