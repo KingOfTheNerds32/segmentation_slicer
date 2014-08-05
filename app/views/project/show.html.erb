@@ -41,7 +41,7 @@
 <% @metric_groups.each do |key, value|%>
   <h4><%= key %></h4>
   <% @metric_groups[key].each do |metric_item| %>
-    <%= metric_item[1] + ': ' + metric_item[0] %><br>
+    <%= metric_item[:var] + ': ' + metric_item[:label] %><br>
   <% end %>
 <% end %>
 

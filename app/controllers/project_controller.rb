@@ -17,6 +17,12 @@ class ProjectController < ApplicationController
     start_time = Time.now
     @info = session[:info]
 
+    #Handle "fresh" projects that don't have any parameters chosen yet
+    if @info == nil
+      @info = Hash.new
+    end
+    puts @info
+
     #General housekeeping
     @project_id = params[:project_id]
     project_info = Project.find_by project_id: @project_id
@@ -57,17 +63,16 @@ class ProjectController < ApplicationController
     @metrics.pluck(:bucket).uniq.each do |metric_group|
       metric_list = []
       @metrics.where(:bucket => metric_group).each do |metric_item|
-        metric_list << [metric_item.label, metric_item.var]
+        metric = Hash.new()
+        metric[:label] = metric_item.label
+        metric[:var] = metric_item.var
+        metric_list << metric
       end
       @metric_groups[metric_group] = metric_list
+      puts @metric_groups.inspect
     end
 
-    #puts filtered_data.length
-    if @info == nil
-      @info = Hash.new
-    end
-    puts @info
-    #TODO: Filter the data to match the filter context
+    #Filter the data to match the filter context
     filtered_data = Hash.new
     raw_data.each do |resp|
       filtered_data[resp['Respondent_ID']] = resp
@@ -102,6 +107,17 @@ class ProjectController < ApplicationController
 
     puts 'FINAL PEEP COUNT: ' + filtered_data.keys.count.to_s
     puts @info.inspect
+
+
+    weight_var = 'Weight_Completes'
+
+    #Perform calculations
+    @metric_groups.each do |key, value|
+      @metric_groups[key].each do |metric_item|
+        puts metric_item.inspect
+      end
+    end
+
 
     end_time = Time.now
     @time = end_time - start_time
