@@ -56,6 +56,7 @@ class ProjectController < ApplicationController
       end
       @banner_groups[banner_group] = banner_list 
     end
+    puts @banner_groups.inspect
 
     #Build the Metrics for the project
     @metrics = Metric.where(:project_id => @project_id)
@@ -109,34 +110,53 @@ class ProjectController < ApplicationController
 
 
     weight_var = 'Weight_Completes'
+    puts @banner_groups[@info[:banner]].inspect
 
     #Perform calculations
     @metric_groups.each do |key, value|
       @metric_groups[key].each do |metric_item|
-        metric_item[:weighted_freq] = 0
-        metric_item[:unweighted_freq] = 0
-        metric_item[:weighted_base] = 0
-        metric_item[:unweighted_base] = 0
-        metric_item[:full_percent] = nil
-        metric_item[:percent] = nil
-        filtered_data.each do |key, resp|
-          # puts resp.inspect
-          if resp[metric_item[:var]] != nil
-            resp_weight = resp[weight_var]
-            if resp[metric_item[:var]] != 0
-              metric_item[:weighted_freq] += (resp_weight * resp[metric_item[:var]])
-              metric_item[:unweighted_freq] += 1
-            end
-            metric_item[:weighted_base] += resp_weight
-            metric_item[:unweighted_base] += 1
-          end
-        end
-        if metric_item[:unweighted_base] >0
-          metric_item[:full_percent] = (metric_item[:weighted_freq] / metric_item[:weighted_base]) * 100
-          metric_item[:percent] = metric_item[:full_percent].round(0)
-        end
+        @banner_groups[@info[:banner]].each do |banner_point|
+          metric_item[banner_point[0]] = Hash.new
+          metric_item[banner_point[0]][:weighted_freq] = 0
+          metric_item[banner_point[0]][:unweighted_freq] = 0
+          metric_item[banner_point[0]][:weighted_base] = 0
+          metric_item[banner_point[0]][:unweighted_base] = 0
+          metric_item[banner_point[0]][:full_percent] = nil
+          metric_item[banner_point[0]][:percent] = nil
+          filtered_data.each do |key, resp|
+            # puts resp.inspect
+            if resp[metric_item[:var]] != nil
+              resp_weight = resp[weight_var]
+              puts 'LOOK HERE'
+              puts banner_point[2]
+              puts resp[banner_point[2]]
+              puts banner_point[1]
+              if resp[banner_point[1]] != nil
 
-        puts metric_item.inspect
+                if resp[metric_item[:var]] != 0 && resp[banner_point[2]] == banner_point[1]
+                  metric_item[banner_point[0]][:weighted_freq] += (resp_weight * resp[metric_item[:var]])
+                  metric_item[banner_point[0]][:unweighted_freq] += 1
+                elsif resp[metric_item[banner_point[2]]] == resp[metric_item[banner_point[1]]]
+                  metric_item[banner_point[0]][:weighted_base] += resp_weight
+                  metric_item[banner_point[0]][:unweighted_base] += 1
+                end
+              else
+                if resp[metric_item[:var]] != 0
+                  metric_item[banner_point[0]][:weighted_freq] += (resp_weight * resp[metric_item[:var]])
+                  metric_item[banner_point[0]][:unweighted_freq] += 1
+                end
+                metric_item[banner_point[0]][:weighted_base] += resp_weight
+                metric_item[banner_point[0]][:unweighted_base] += 1
+              end
+            end
+          end
+          if metric_item[banner_point[0]][:unweighted_base] >0
+            metric_item[banner_point[0]][:full_percent] = (metric_item[banner_point[0]][:weighted_freq] / metric_item[banner_point[0]][:weighted_base]) * 100
+            metric_item[banner_point[0]][:percent] = metric_item[banner_point[0]][:full_percent].round(0)
+          end
+
+          #puts metric_item.inspect
+        end
       end
     end
 
