@@ -86,14 +86,14 @@ class ProjectController < ApplicationController
         filter_val = nil
         filter_var = nil
         filter_var = filter_info[0]
-        filter_val = filter_info[1].to_i
+        filter_val = filter_info[1]
 
         puts 'FILTER SETTING: ' + filter_info.inspect
 
         if filter_val != nil
           puts 'NOW APPLYING FILTER FOR: ' + filter_group
           filtered_data.each do |key, resp|
-            if resp[filter_var] != filter_val
+            if resp[filter_var] != filter_val.to_i
               filtered_data.delete(resp['Respondent_ID'])
             end
           end
@@ -117,13 +117,14 @@ class ProjectController < ApplicationController
         metric_item[:unweighted_freq] = 0
         metric_item[:weighted_base] = 0
         metric_item[:unweighted_base] = 0
+        metric_item[:full_percent] = nil
         metric_item[:percent] = nil
         filtered_data.each do |key, resp|
           # puts resp.inspect
           if resp[metric_item[:var]] != nil
             resp_weight = resp[weight_var]
-            if resp[metric_item[:var]] == 1
-              metric_item[:weighted_freq] += resp_weight
+            if resp[metric_item[:var]] != 0
+              metric_item[:weighted_freq] += (resp_weight * resp[metric_item[:var]])
               metric_item[:unweighted_freq] += 1
             end
             metric_item[:weighted_base] += resp_weight
@@ -131,9 +132,8 @@ class ProjectController < ApplicationController
           end
         end
         if metric_item[:unweighted_base] >0
-          metric_item[:percent] = (metric_item[:weighted_freq] / metric_item[:weighted_base]) * 100
-        else
-          metric_item[:percent] = nil
+          metric_item[:full_percent] = (metric_item[:weighted_freq] / metric_item[:weighted_base]) * 100
+          metric_item[:percent] = metric_item[:full_percent].round(0)
         end
 
         puts metric_item.inspect
