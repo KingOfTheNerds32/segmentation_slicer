@@ -1,12 +1,5 @@
 <%= @time %>
 <br>
-<br>
-
-<% if @info.has_key? ('banner') %>
-  <% @banner_groups[@info['banner']].each do |banner_item| %>
-    <%= banner_item[0] %><br>
-  <% end %>
-<% end %>
 
 <%= form_tag '/project/' + @project_id + '/calculate' do %>
   <h3>Banner:</h3>
@@ -38,10 +31,21 @@
   <%= submit_tag ('Update Project' ) %>
 <% end %>
 
-<% @metric_groups.each do |key, value|%>
-  <h4><%= key %></h4>
-  <% @metric_groups[key].each do |metric_item| %>
-    <%= metric_item[:var] + ': ' + metric_item[:label] %><br>
+<table>
+  <% @metric_groups.each do |key, value|%>
+    <tr><td><h4><%= key %></h4></td></tr>
+    <% @metric_groups[key].each do |metric_item| %>
+    <tr>
+      <td><%= metric_item[:var] + ': ' + metric_item[:label] %></td>
+      <% if metric_item[:percent] == nil %>
+        <td>**</td>
+      <% elsif metric_item[:unweighted_freq] < 3 %>
+        <td><%= metric_item[:percent].to_s %>*</td>
+      <% else %>
+        <td><%= metric_item[:percent].to_s %></td>
+      <% end %>
+    </tr>
+    <% end %>
   <% end %>
-<% end %>
+</table>
 

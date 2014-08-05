@@ -31,7 +31,7 @@ class ProjectController < ApplicationController
 
     #Load the data into memory
     file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
-    raw_data = CSV.read(file_path, col_sep: '|', converters: :numeric, headers:true)
+    raw_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
 
 
     #Build the filters for the project
@@ -69,7 +69,6 @@ class ProjectController < ApplicationController
         metric_list << metric
       end
       @metric_groups[metric_group] = metric_list
-      puts @metric_groups.inspect
     end
 
     #Filter the data to match the filter context
@@ -114,6 +113,29 @@ class ProjectController < ApplicationController
     #Perform calculations
     @metric_groups.each do |key, value|
       @metric_groups[key].each do |metric_item|
+        metric_item[:weighted_freq] = 0
+        metric_item[:unweighted_freq] = 0
+        metric_item[:weighted_base] = 0
+        metric_item[:unweighted_base] = 0
+        metric_item[:percent] = nil
+        filtered_data.each do |key, resp|
+          # puts resp.inspect
+          if resp[metric_item[:var]] != nil
+            resp_weight = resp[weight_var]
+            if resp[metric_item[:var]] == 1
+              metric_item[:weighted_freq] += resp_weight
+              metric_item[:unweighted_freq] += 1
+            end
+            metric_item[:weighted_base] += resp_weight
+            metric_item[:unweighted_base] += 1
+          end
+        end
+        if metric_item[:unweighted_base] >0
+          metric_item[:percent] = (metric_item[:weighted_freq] / metric_item[:weighted_base]) * 100
+        else
+          metric_item[:percent] = nil
+        end
+
         puts metric_item.inspect
       end
     end
