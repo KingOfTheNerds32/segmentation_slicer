@@ -113,8 +113,11 @@ class ProjectController < ApplicationController
     puts @banner_groups[@info[:banner]].inspect
 
     #Perform calculations
+    #Iterate over each metric_item in each metric_group
     @metric_groups.each do |key, value|
       @metric_groups[key].each do |metric_item|
+
+        #Go through each banner point (including 'All')
         @banner_groups[@info[:banner]].each do |banner_point|
           metric_item[banner_point[0]] = Hash.new
           metric_item[banner_point[0]][:weighted_freq] = 0
@@ -123,33 +126,49 @@ class ProjectController < ApplicationController
           metric_item[banner_point[0]][:unweighted_base] = 0
           metric_item[banner_point[0]][:full_percent] = nil
           metric_item[banner_point[0]][:percent] = nil
+
+          #Iterate over the respondents
           filtered_data.each do |key, resp|
             # puts resp.inspect
             if resp[metric_item[:var]] != nil
               resp_weight = resp[weight_var]
-              puts 'LOOK HERE'
-              puts banner_point[2]
-              puts resp[banner_point[2]]
-              puts banner_point[1]
+              # puts 'LOOK HERE'
+              # puts banner_point[2]
+              # puts resp[banner_point[2]]
+              # puts banner_point[1]
+
+              #If there is a value for the banner point, then you're looking at a specific subgroup
               if resp[banner_point[1]] != nil
 
+                #If a resp does not have a 0 for the metric & the resp belongs to the subgroup, count them for the freq
                 if resp[metric_item[:var]] != 0 && resp[banner_point[2]] == banner_point[1]
                   metric_item[banner_point[0]][:weighted_freq] += (resp_weight * resp[metric_item[:var]])
                   metric_item[banner_point[0]][:unweighted_freq] += 1
-                elsif resp[metric_item[banner_point[2]]] == resp[metric_item[banner_point[1]]]
+                end
+
+                #If the respondent belongs to the subgroup, then count them in the base
+                if resp[metric_item[banner_point[2]]] == resp[metric_item[banner_point[1]]]
                   metric_item[banner_point[0]][:weighted_base] += resp_weight
                   metric_item[banner_point[0]][:unweighted_base] += 1
                 end
+
+              #If there is no value for the banner point, then you're looking at 'All'
               else
+
+                #Count resp with !=0 in freq
                 if resp[metric_item[:var]] != 0
                   metric_item[banner_point[0]][:weighted_freq] += (resp_weight * resp[metric_item[:var]])
                   metric_item[banner_point[0]][:unweighted_freq] += 1
                 end
+
+                #Count all resp in base
                 metric_item[banner_point[0]][:weighted_base] += resp_weight
                 metric_item[banner_point[0]][:unweighted_base] += 1
               end
             end
           end
+
+          #If base > 0 - do the math (this addresses error caused by dividing by 0)
           if metric_item[banner_point[0]][:unweighted_base] >0
             metric_item[banner_point[0]][:full_percent] = (metric_item[banner_point[0]][:weighted_freq] / metric_item[banner_point[0]][:weighted_base]) * 100
             metric_item[banner_point[0]][:percent] = metric_item[banner_point[0]][:full_percent].round(0)
