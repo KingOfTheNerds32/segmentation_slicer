@@ -32,19 +32,28 @@
 <% end %>
 
 <table>
+  <tr>
+    <td></td>
+    <% @banner_groups[@info[:banner]].each do |banner_point| %>
+      <td><%=banner_point[0]%></td>
+    <% end %>
+  </tr>
   <% @metric_groups.each do |key, value|%>
     <tr><td><h4><%= key %></h4></td></tr>
     <% @metric_groups[key].each do |metric_item| %>
     <tr>
       <td><%= metric_item[:var] + ': ' + metric_item[:label] %></td>
       <% @banner_groups[@info[:banner]].each do |banner_point| %>
-        <% if metric_item[banner_point[0]][:percent] == nil %>
-          <td>**</td>
-        <% elsif metric_item[banner_point[0]][:unweighted_freq] < 3 %>
-          <td><%= metric_item[banner_point[0]][:percent].to_s %>*</td>
-        <% else %>
-          <td><%= metric_item[banner_point[0]][:percent].to_s %></td>
-        <% end %>
+        <% ban_label = banner_point[0] %>
+          <% if metric_item[ban_label][:unweighted_base] == 0 || metric_item[ban_label][:unweighted_base] == nil%>
+            <td><i>NA</i></td>
+          <% else %>
+            <% if metric_item[ban_label][:unweighted_base] < 3 %>
+              <td><i><%= metric_item[ban_label][:percent] %>*</i></td>
+            <% else %>
+              <td><%= metric_item[ban_label][:percent] %></td>
+            <% end %>
+          <% end %>
       <% end %>
     </tr>
     <% end %>

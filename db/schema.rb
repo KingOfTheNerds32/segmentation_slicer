@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140803221411) do
+ActiveRecord::Schema.define(version: 20140809235946) do
 
   create_table "filters", force: true do |t|
     t.integer "project_id"
@@ -40,5 +40,15 @@ ActiveRecord::Schema.define(version: 20140803221411) do
   end
 
   add_index "projects", ["project_id"], name: "index_projects_on_project_id"
+
+  create_table "responses", force: true do |t|
+    t.integer  "project_id"
+    t.string   "respondent_id"
+    t.string   "var"
+    t.float    "response"
+    t.float    "weight"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

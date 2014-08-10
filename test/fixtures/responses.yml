@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  respondent_id: 
-  metric_id: 
-  value_id: 
+  project_id: 1
+  respondent_id: MyString
+  var: MyString
+  response: 1.5
+  weight: 1.5
 
 two:
-  respondent_id: 
-  metric_id: 
-  value_id: 
+  project_id: 1
+  respondent_id: MyString
+  var: MyString
+  response: 1.5
+  weight: 1.5

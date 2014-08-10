@@ -73,10 +73,10 @@ class ProjectController < ApplicationController
     end
 
     #Filter the data to match the filter context
-    filtered_data = Hash.new
-    raw_data.each do |resp|
-      filtered_data[resp['Respondent_ID']] = resp
-    end
+    raw_data = Response.where(:project_id => @project_id)
+    resp_list = raw_data.pluck(:respondent_id).uniq
+    puts 'UNFILTERED RECORD COUNT: ' + raw_data.count.to_s
+    puts 'UNFILTERED RESPONDENT COUNT: ' + resp_list.count.to_s
 
     @filters.pluck(:group).uniq.each do |filter_group|
       if @info.has_key? (filter_group)
@@ -93,19 +93,18 @@ class ProjectController < ApplicationController
 
         if filter_val != nil
           puts 'NOW APPLYING FILTER FOR: ' + filter_group
-          filtered_data.each do |key, resp|
-            if resp[filter_var] != filter_val.to_i
-              filtered_data.delete(resp['Respondent_ID'])
-            end
-          end
-          puts 'PEEP COUNT: ' + filtered_data.keys.count.to_s
+          resp_list = raw_data.where(:var => filter_var, :response => filter_val, :respondent_id => resp_list).pluck(:respondent_id).uniq
+          puts 'PEEP COUNT: ' + resp_list.count.to_s
         else
           #puts filter_group + ' FILTER does NOT have VALUE: ' + filter_info.inspect
         end
       end
     end
 
-    puts 'FINAL PEEP COUNT: ' + filtered_data.keys.count.to_s
+    filtered_data = raw_data.where(:respondent_id => resp_list)
+
+    puts 'FINAL PEEP COUNT: ' + resp_list.count.to_s
+    puts 'FINAL RECORD COUNT: ' + filtered_data.count.to_s
     puts @info.inspect
 
 
@@ -114,71 +113,62 @@ class ProjectController < ApplicationController
 
     #Perform calculations
     #Iterate over each metric_item in each metric_group
+    counter = 0
+
+    # Go through each banner point (including 'All')
+    unstructured_data = Hash.new
+    @banner_groups[@info[:banner]].each do |banner_point|
+      ban_label = banner_point[0] 
+      ban_val = banner_point[1] 
+      ban_var = banner_point[2]
+      
+      unstructured_data[ban_label] = Hash.new
+      
+      if ban_val == nil
+        subgroup_filtered_data = filtered_data
+      else
+        resp_list = filtered_data.where(:var => ban_var, :response => ban_val).pluck(:respondent_id).uniq
+        subgroup_filtered_data = filtered_data.where(:respondent_id => resp_list)
+      end
+      unstructured_data[ban_var]
+
+      unstructured_data[ban_label][:unweighted_base] = subgroup_filtered_data.group(:var).count
+      unstructured_data[ban_label][:unweighted_freq] = subgroup_filtered_data.group(:var).where.not(:response => 0).count
+      unstructured_data[ban_label][:weighted_base] = subgroup_filtered_data.group(:var).sum(:weight)
+      unstructured_data[ban_label][:weighted_freq] = subgroup_filtered_data.group(:var).where.not(:response => 0).sum('weight * response')
+    end
+
+    # unstructured_data.each do |data|
+    #   puts 'LOOK HERE'
+    #   puts data.inspect
+    # end
+
     @metric_groups.each do |key, value|
       @metric_groups[key].each do |metric_item|
-
-        #Go through each banner point (including 'All')
         @banner_groups[@info[:banner]].each do |banner_point|
-          metric_item[banner_point[0]] = Hash.new
-          metric_item[banner_point[0]][:weighted_freq] = 0
-          metric_item[banner_point[0]][:unweighted_freq] = 0
-          metric_item[banner_point[0]][:weighted_base] = 0
-          metric_item[banner_point[0]][:unweighted_base] = 0
-          metric_item[banner_point[0]][:full_percent] = nil
-          metric_item[banner_point[0]][:percent] = nil
-
-          #Iterate over the respondents
-          filtered_data.each do |key, resp|
-            # puts resp.inspect
-            if resp[metric_item[:var]] != nil
-              resp_weight = resp[weight_var]
-              # puts 'LOOK HERE'
-              # puts banner_point[2]
-              # puts resp[banner_point[2]]
-              # puts banner_point[1]
-
-              #If there is a value for the banner point, then you're looking at a specific subgroup
-              if resp[banner_point[1]] != nil
-
-                #If a resp does not have a 0 for the metric & the resp belongs to the subgroup, count them for the freq
-                if resp[metric_item[:var]] != 0 && resp[banner_point[2]] == banner_point[1]
-                  metric_item[banner_point[0]][:weighted_freq] += (resp_weight * resp[metric_item[:var]])
-                  metric_item[banner_point[0]][:unweighted_freq] += 1
-                end
-
-                #If the respondent belongs to the subgroup, then count them in the base
-                if resp[metric_item[banner_point[2]]] == resp[metric_item[banner_point[1]]]
-                  metric_item[banner_point[0]][:weighted_base] += resp_weight
-                  metric_item[banner_point[0]][:unweighted_base] += 1
-                end
-
-              #If there is no value for the banner point, then you're looking at 'All'
-              else
-
-                #Count resp with !=0 in freq
-                if resp[metric_item[:var]] != 0
-                  metric_item[banner_point[0]][:weighted_freq] += (resp_weight * resp[metric_item[:var]])
-                  metric_item[banner_point[0]][:unweighted_freq] += 1
-                end
-
-                #Count all resp in base
-                metric_item[banner_point[0]][:weighted_base] += resp_weight
-                metric_item[banner_point[0]][:unweighted_base] += 1
-              end
+          ban_label = banner_point[0]
+          ban_var = banner_point[2]
+          metric_item[ban_label] = Hash.new
+          metric_ban = metric_item[ban_label]
+          metric_ban[:unweighted_base] = unstructured_data[ban_label][:unweighted_base][metric_item[:var]]
+          metric_ban[:weighted_base] = unstructured_data[ban_label][:weighted_base][metric_item[:var]]
+          metric_ban[:unweighted_freq] = unstructured_data[ban_label][:unweighted_freq][metric_item[:var]]
+          metric_ban[:weighted_freq] = unstructured_data[ban_label][:weighted_freq][metric_item[:var]]
+          if metric_ban[:unweighted_base] != 0 && metric_ban[:unweighted_base] != nil
+            if metric_ban[:weighted_freq] == nil
+              metric_ban[:full_percent] = 0
+              metric_ban[:percent] = 0
+            else
+              metric_ban[:full_percent] = (metric_ban[:weighted_freq] / metric_ban[:weighted_base]) * 100
+              metric_ban[:percent] = metric_ban[:full_percent].round(0)
             end
           end
-
-          #If base > 0 - do the math (this addresses error caused by dividing by 0)
-          if metric_item[banner_point[0]][:unweighted_base] >0
-            metric_item[banner_point[0]][:full_percent] = (metric_item[banner_point[0]][:weighted_freq] / metric_item[banner_point[0]][:weighted_base]) * 100
-            metric_item[banner_point[0]][:percent] = metric_item[banner_point[0]][:full_percent].round(0)
-          end
-
-          #puts metric_item.inspect
         end
       end
     end
 
+    puts @metric_groups['Segment Classification'][0]['All Countries'].inspect
+    puts @metric_groups['Segment Classification'][0]['United States'].inspect
 
     end_time = Time.now
     @time = end_time - start_time
