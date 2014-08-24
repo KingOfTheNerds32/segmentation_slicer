@@ -46,12 +46,12 @@
       <% @banner_groups[@info[:banner]].each do |banner_point| %>
         <% ban_label = banner_point[0] %>
           <% if metric_item[ban_label][:unweighted_base] == 0 || metric_item[ban_label][:unweighted_base] == nil%>
-            <td><i>NA</i></td>
+            <td align="center"><i>NA</i></td>
           <% else %>
             <% if metric_item[ban_label][:unweighted_base] < 3 %>
-              <td><i><%= metric_item[ban_label][:percent] %>*</i></td>
+              <td align="center"><i><%= metric_item[ban_label][:percent] %>*</i></td>
             <% else %>
-              <td><%= metric_item[ban_label][:percent] %></td>
+              <td align="center"><%= metric_item[ban_label][:percent] %></td>
             <% end %>
           <% end %>
       <% end %>

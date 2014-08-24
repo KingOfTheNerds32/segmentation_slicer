@@ -13,7 +13,7 @@ class AdminController < ApplicationController
 
     #Update Filter table to contain info for project
     file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/Filters.csv'
-    filter_data = CSV.read(file_path, col_sep: '|', converters: :numeric, headers:true)
+    filter_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
     current_filters = Filter.where(:project_id => @project_id)
     current_filters.destroy_all
 
@@ -39,28 +39,28 @@ class AdminController < ApplicationController
     metric_vars = Metric.where(:project_id => @project_id).pluck(:var).uniq
     dimensions_list = filter_vars + metric_vars
     
-    file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
-    response_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
-    current_responses = Response.where(:project_id => @project_id)
-    current_responses.destroy_all
+    # file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
+    # response_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
+    # current_responses = Response.where(:project_id => @project_id)
+    # current_responses.destroy_all
 
 
-    puts dimensions_list.count
-    response_data.each do |resp|
-      resp_id = resp['Respondent_ID']
-      resp_weight = resp['Weight_Completes']
-      dimensions_list.each do |dimension|
-        if resp[dimension]
-          r = Response.new
-          r.respondent_id = resp_id
-          r.weight = resp_weight
-          r.project_id = @project_id
-          r.var = dimension
-          r.response = resp[dimension]
-          r.save
-        end
-      end
-    end
+    # puts dimensions_list.count
+    # response_data.each do |resp|
+    #   resp_id = resp['Respondent_ID']
+    #   resp_weight = resp['Weight_Completes']
+    #   dimensions_list.each do |dimension|
+    #     if resp[dimension]
+    #       r = Response.new
+    #       r.respondent_id = resp_id
+    #       r.weight = resp_weight
+    #       r.project_id = @project_id
+    #       r.var = dimension
+    #       r.response = resp[dimension]
+    #       r.save
+    #     end
+    #   end
+    # end
 
     end_time = Time.now
     @time = end_time - start_time

@@ -30,8 +30,8 @@ class ProjectController < ApplicationController
     @full_project_name = @project_id.to_s + ": " + project_name
 
     #Load the data into memory
-    file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
-    raw_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
+    #file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
+    #raw_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
 
 
     #Build the filters for the project
@@ -167,8 +167,8 @@ class ProjectController < ApplicationController
       end
     end
 
-    puts @metric_groups['Segment Classification'][0]['All Countries'].inspect
-    puts @metric_groups['Segment Classification'][0]['United States'].inspect
+    # puts @metric_groups['Segment Classification'][0]['All Countries'].inspect
+    # puts @metric_groups['Segment Classification'][0]['United States'].inspect
 
     end_time = Time.now
     @time = end_time - start_time
