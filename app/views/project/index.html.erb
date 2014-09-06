@@ -1,6 +1,9 @@
 <h1>Projects</h1>
-<ul>
+<table>
   <% @projects.each do |project| %>
-    <li><a href='/project/<%= project.project_id %>'><%= project.project_id %></a></li>
+    <tr>
+      <td><a href='/project/<%= project.project_id %>'><%= project.project_id %></a></td>
+      <td><a href='/project/<%= project.project_id %>/admin'>Admin</a></td>
+    </tr>
   <% end %>
-</ul>
+</table> 

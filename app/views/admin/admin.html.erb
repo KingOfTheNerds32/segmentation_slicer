@@ -2,5 +2,9 @@
 <h3><%= link_to @full_project_name, '/project/' + @project_id %></h3>
 
 <%= form_tag 'update' do %>
+  <%= label_tag("Project Name") %>
+  <%= text_field_tag(:name, @project_name) %>
+  <br><br>
+  
   <%= submit_tag ('Update Project' ) %>
 <% end %>
