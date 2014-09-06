@@ -1,10 +1,30 @@
 <h1>Admin Portal</h1>
-<h3><%= link_to @full_project_name, '/project/' + @project_id %></h3>
+<h2><%= link_to @full_project_name, '/project/' + @project_id %></h2>
 
 <%= form_tag 'update' do %>
   <%= label_tag("Project Name") %>
   <%= text_field_tag(:name, @project_name) %>
+  <br>
+
+  <h3>Uploaders</h3>
+  <%= label_tag("Filters/Subgroups Specs") %> 
+  <%= file_field_tag :filters %>
+  <br>
+  <%= label_tag("Metrics Specs") %> 
+  <%= file_field_tag :metrics %> 
+  <br>
+  <%= label_tag("Data File") %> 
+  <%= file_field_tag :data %> 
+  <br>
+  <%= label_tag("Client logo") %> 
+  <%= file_field_tag :logo %> 
+
+
+
+
   <br><br>
-  
   <%= submit_tag ('Update Project' ) %>
+
+
+
 <% end %>

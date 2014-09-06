@@ -11,33 +11,34 @@ class AdminController < ApplicationController
     start_time = Time.now
     @project_id = params[:project_id]
 
-    # #Update Filter table to contain info for project
-    # file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/Filters.csv'
-    # filter_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
-    # current_filters = Filter.where(:project_id => @project_id)
-    # current_filters.destroy_all
+    #Update Filter table to contain info for project
+    filter_path = params[:filters]
+    if filter_path
+      puts 'Updating FILTERS with ' + filter_path
+      filter_data = CSV.read(filter_path, col_sep: ',', converters: :numeric, headers:true)
+      current_filters = Filter.where(:project_id => @project_id)
+      current_filters.destroy_all
 
-    # filter_data.each do |filter|
-    #   filter['project_id'] = @project_id
-    #   puts filter.inspect
-    #   Filter.create!(filter.to_hash)
-    # end
+      filter_data.each do |filter|
+        filter['project_id'] = @project_id
+        puts filter.inspect
+        Filter.create!(filter.to_hash)
+      end
+    end
 
-    # #Update Metric table to contain info for project
-    # file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/Metrics.csv'
-    # metric_data = CSV.read(file_path, col_sep: '|', converters: :numeric, headers:true)
-    # current_metrics = Metric.where(:project_id => @project_id)
-    # current_metrics.destroy_all
+    #Update Metric table to contain info for project
+    metric_path = params[:metrics]
+    if metric_path
+      puts 'Updating METRICS with ' + metric_path
+      metric_data = CSV.read(metric_path, col_sep: '|', converters: :numeric, headers:true)
+      current_metrics = Metric.where(:project_id => @project_id)
+      current_metrics.destroy_all
 
-    # metric_data.each do |metric|
-    #   metric['project_id'] = @project_id
-    #   Metric.create!(metric.to_hash)
-    # end
-
-    # #Update Response table to contain info for project. Limit to non-null & metrics used in the filter and metric tables
-    # filter_vars = Filter.where(:project_id => @project_id).pluck(:var).uniq
-    # metric_vars = Metric.where(:project_id => @project_id).pluck(:var).uniq
-    # dimensions_list = filter_vars + metric_vars
+      metric_data.each do |metric|
+        metric['project_id'] = @project_id
+        Metric.create!(metric.to_hash)
+      end
+    end
 
     project_info = Project.find_by project_id: @project_id
     @project_name = params[:name]
@@ -47,14 +48,17 @@ class AdminController < ApplicationController
       puts 'Changing project name to: ' + @project_name
     end
 
-    
+    # #Update Response table to contain info for project. Limit to non-null & metrics used in the filter and metric tables
+    # filter_vars = Filter.where(:project_id => @project_id).pluck(:var).uniq
+    # metric_vars = Metric.where(:project_id => @project_id).pluck(:var).uniq
+    # dimensions_list = filter_vars + metric_vars
+
     # file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
     # response_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
     # current_responses = Response.where(:project_id => @project_id)
     # current_responses.destroy_all
 
 
-    # puts dimensions_list.count
     # response_data.each do |resp|
     #   resp_id = resp['Respondent_ID']
     #   resp_weight = resp['Weight_Completes']
