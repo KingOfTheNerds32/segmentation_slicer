@@ -6,12 +6,16 @@
   <%= text_field_tag(:name, @project_name) %>
   <br>
 
-  <h3>Uploaders</h3>
-  <%= label_tag("Filters/Subgroups Specs") %> 
+  <h3>Specs</h3>
+  <%= label_tag("Filters/Subgroups Specs") %>
+  <%= link_to "Download", '/project/' + @project_id + '/filter.csv' %>
   <%= file_field_tag :filters %>
+  Please make sure to use '|' delimiters<br>
   <br>
   <%= label_tag("Metrics Specs") %> 
+  <%= link_to "Download", '/project/' + @project_id + '/metric.csv' %>
   <%= file_field_tag :metrics %> 
+  Please make sure to use '|' delimiters<br>
   <br>
   <%= label_tag("Data File") %> 
   <%= file_field_tag :data %> 
@@ -20,11 +24,10 @@
   <%= file_field_tag :logo %> 
 
 
-
-
   <br><br>
   <%= submit_tag ('Update Project' ) %>
 
 
 
 <% end %>
+

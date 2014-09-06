@@ -15,7 +15,7 @@ class AdminController < ApplicationController
     filter_path = params[:filters]
     if filter_path
       puts 'Updating FILTERS with ' + filter_path
-      filter_data = CSV.read(filter_path, col_sep: ',', converters: :numeric, headers:true)
+      filter_data = CSV.read(filter_path, col_sep: '|', converters: :numeric, headers:true)
       current_filters = Filter.where(:project_id => @project_id)
       current_filters.destroy_all
 
@@ -58,7 +58,6 @@ class AdminController < ApplicationController
     # current_responses = Response.where(:project_id => @project_id)
     # current_responses.destroy_all
 
-
     # response_data.each do |resp|
     #   resp_id = resp['Respondent_ID']
     #   resp_weight = resp['Weight_Completes']
@@ -83,4 +82,25 @@ class AdminController < ApplicationController
     redirect_link = '/project/' + params[:project_id] + '/admin'
     redirect_to  redirect_link
   end
+
+
+  def filter_download
+    @project_id = params[:project_id]
+    @filters = Filter.where(:project_id=> @project_id)
+    respond_to do |format|
+      format.html
+      #format.csv {render text: @metrics.to_csv(col_sep: '|')}
+      format.csv {send_data @filters.to_csv(col_sep: '|')}
+    end
+  end
+    def metric_download
+    @project_id = params[:project_id]
+    @metrics = Metric.where(:project_id=> @project_id)
+    respond_to do |format|
+      format.html
+      #format.csv {render text: @metrics.to_csv(col_sep: '|')}
+      format.csv {send_data @metrics.to_csv(col_sep: '|')}
+    end
+  end
 end
+
