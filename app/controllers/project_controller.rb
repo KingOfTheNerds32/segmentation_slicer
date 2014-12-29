@@ -21,7 +21,6 @@ class ProjectController < ApplicationController
     if @info == nil
       @info = Hash.new
     end
-    puts @info
 
     #General housekeeping
     @project_id = params[:project_id]
@@ -56,6 +55,7 @@ class ProjectController < ApplicationController
       end
       @banner_groups[banner_group] = banner_list 
     end
+    puts 'THESE ARE THE BANNER GROUPS: '
     puts @banner_groups.inspect
 
     #Build the Metrics for the project
@@ -117,6 +117,12 @@ class ProjectController < ApplicationController
 
     # Go through each banner point (including 'All')
     unstructured_data = Hash.new
+
+    if @info[:banner] == nil
+      @info[:banner] = @banner_groups.first[0]
+    end
+
+
     @banner_groups[@info[:banner]].each do |banner_point|
       ban_label = banner_point[0] 
       ban_val = banner_point[1] 
@@ -159,14 +165,15 @@ class ProjectController < ApplicationController
               metric_ban[:full_percent] = 0
               metric_ban[:percent] = 0
             else
-              metric_ban[:full_percent] = (metric_ban[:weighted_freq] / metric_ban[:weighted_base]) * 100
+              metric_ban[:full_percent] = (metric_ban[:weighted_freq].to_f / metric_ban[:weighted_base].to_f) * 100
               metric_ban[:percent] = metric_ban[:full_percent].round(0)
             end
           end
         end
       end
     end
-
+    puts 'HERE ARE THE METRIC GROUPS:'
+    puts @metric_groups.inspect
     # puts @metric_groups['Segment Classification'][0]['All Countries'].inspect
     # puts @metric_groups['Segment Classification'][0]['United States'].inspect
 

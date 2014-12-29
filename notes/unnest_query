@@ -1,0 +1,13 @@
+Create Table tblUnPivotExample(ItemNo INT, TotalAmt INT,Item1 INT,Item2 INT,Item3 INT,Item4 INT);
+Insert Into tblUnPivotExample(ItemNo,TotalAmt,Item1,Item2,Item3,Item4) Values(101,100,10,11,12,14);
+Insert Into tblUnPivotExample(ItemNo,TotalAmt,Item1,Item2,Item3,Item4) Values(202,200,20,21,22,24);
+Insert Into tblUnPivotExample(ItemNo,TotalAmt,Item1,Item2,Item3,Item4) Values(303,300,30,31,32,34);
+Insert Into tblUnPivotExample(ItemNo,TotalAmt,Item1,Item2,Item3,Item4) Values(404,400,40,41,42,44);
+Insert Into tblUnPivotExample(ItemNo,TotalAmt,Item1,Item2,Item3,Item4) Values(505,500,50,51,52,54);
+
+SELECT
+ItemNo,
+UNNEST(ARRAY[Item2,Item3]) AS item,
+UNNEST(array[Item4]) as item2
+FROM tblUnPivotExample
+ORDER BY ItemNo;

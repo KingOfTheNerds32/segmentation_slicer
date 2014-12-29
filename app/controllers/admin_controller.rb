@@ -20,8 +20,21 @@ class AdminController < ApplicationController
       current_filters.destroy_all
 
       filter_data.each do |filter|
-        filter['project_id'] = @project_id
+        # filter_hash = 
+        #   {
+        #     :project_id => @project_id, 
+        #     :group => filter['group'], 
+        #     :var => filter['var'], 
+        #     :label => filter['label'], 
+        #     :filter => filter['filter'], 
+        #     :banner => filter['banner']
+        #     }.tap do |filter_val_hash|
+        #       filter_val_hash[:filter_val] = filter['filter_val'] if filter['filter_val']
+        #     end
+        filter[:project_id] = @project_id
+
         puts filter.inspect
+        # puts filter_hash
         Filter.create!(filter.to_hash)
       end
     end
@@ -49,30 +62,38 @@ class AdminController < ApplicationController
     end
 
     # #Update Response table to contain info for project. Limit to non-null & metrics used in the filter and metric tables
-    # filter_vars = Filter.where(:project_id => @project_id).pluck(:var).uniq
-    # metric_vars = Metric.where(:project_id => @project_id).pluck(:var).uniq
-    # dimensions_list = filter_vars + metric_vars
+    filter_vars = Filter.where(:project_id => @project_id).pluck(:var).uniq
+    metric_vars = Metric.where(:project_id => @project_id).pluck(:var).uniq
+    dimensions_list = filter_vars + metric_vars
 
-    # file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
-    # response_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
-    # current_responses = Response.where(:project_id => @project_id)
-    # current_responses.destroy_all
+    data_path = params[:data] #'/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
+    puts data_path
+    if data_path
+      puts 'got a file'
+      response_data = CSV.read(data_path, col_sep: '|', converters: :numeric, headers:true)
+      current_responses = Response.where(:project_id => @project_id)
+      current_responses.destroy_all
 
-    # response_data.each do |resp|
-    #   resp_id = resp['Respondent_ID']
-    #   resp_weight = resp['Weight_Completes']
-    #   dimensions_list.each do |dimension|
-    #     if resp[dimension]
-    #       r = Response.new
-    #       r.respondent_id = resp_id
-    #       r.weight = resp_weight
-    #       r.project_id = @project_id
-    #       r.var = dimension
-    #       r.response = resp[dimension]
-    #       r.save
-    #     end
-    #   end
-    # end
+      test = response_data
+      puts 'LOOK HERE BOZO!'
+      puts test
+
+      response_data.each do |resp|
+        resp_id = resp['Respondent_ID']
+        resp_weight = resp['Weight_Completes']
+        dimensions_list.each do |dimension|
+          if resp[dimension]
+            r = Response.new
+            r.respondent_id = resp_id
+            r.weight = resp_weight
+            r.project_id = @project_id
+            r.var = dimension
+            r.response = resp[dimension]
+            r.save
+          end
+        end
+      end
+    end
 
     end_time = Time.now
     @time = end_time - start_time

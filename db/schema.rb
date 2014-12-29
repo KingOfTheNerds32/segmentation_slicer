@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20140809235946) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "filters", force: true do |t|
     t.integer "project_id"
     t.string  "group"
@@ -39,7 +42,7 @@ ActiveRecord::Schema.define(version: 20140809235946) do
     t.datetime "updated_at"
   end
 
-  add_index "projects", ["project_id"], name: "index_projects_on_project_id"
+  add_index "projects", ["project_id"], name: "index_projects_on_project_id", using: :btree
 
   create_table "responses", force: true do |t|
     t.integer  "project_id"

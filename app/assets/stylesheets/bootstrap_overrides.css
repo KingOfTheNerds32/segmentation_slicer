@@ -1,3 +1,10 @@
 body{
   margin: 20px 20px 20px 20px;
 }
+
+.fixed {
+  position: fixed;
+}
+.scrollit {
+  float: right;
+}

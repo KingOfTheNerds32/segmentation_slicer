@@ -1,0 +1,8 @@
+Insert into cool(
+SELECT
+	VendorID,
+   unnest(array['emp1', 'emp2', 'emp3']) AS "Employee",
+   unnest(array[emp1, emp2, emp3, emp4, emp5]) AS "Count"
+FROM pvt
+ORDER BY "Employee"
+);

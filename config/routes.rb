@@ -1,4 +1,5 @@
 SegmentationSlicer::Application.routes.draw do
+  root 'project#index'
   get '/projects' => 'project#index'
   get '/project/:project_id' => 'project#show'
   get '/project/:project_id/admin' => 'admin#admin'

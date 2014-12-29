@@ -1,21 +1,21 @@
-group,var,filter_val,label,filter,banner
-Country,Country,,All Countries,TRUE,TRUE
-Country,Country,1,United States,TRUE,TRUE
-Country,Country,2,United Kingdom,TRUE,TRUE
-Country,Country,3,China,TRUE,TRUE
-Country,Country,4,Germany,TRUE,TRUE
-Country,Country,5,Australia,TRUE,TRUE
-Age,S3_DV,,All Ages,TRUE,TRUE
-Age,S3_DV,1,18-24,TRUE,TRUE
-Age,S3_DV,2,25-34,TRUE,TRUE
-Age,S3_DV,3,35-44,TRUE,TRUE
-Age,S3_DV,4,45-54,TRUE,TRUE
-Age,S3_DV,5,55-60,TRUE,TRUE
-Age,S3_DV,6,61-70,TRUE,TRUE
-Segment,SEG01,,All Segments,TRUE,TRUE
-Segment,SEG01,1,Segment 1,TRUE,TRUE
-Segment,SEG02,1,Segment 2,TRUE,TRUE
-Segment,SEG03,1,Segment 3,TRUE,TRUE
-Segment,SEG04,1,Segment 4,TRUE,TRUE
-Segment,SEG05,1,Segment 5,TRUE,TRUE
-Segment,SEG06,1,Segment 6,TRUE,TRUE
+group|var|filter_val|label|filter|banner
+Country|Country||All Countries|TRUE|TRUE
+Country|Country|1|United States|TRUE|TRUE
+Country|Country|2|United Kingdom|TRUE|TRUE
+Country|Country|3|China|TRUE|TRUE
+Country|Country|4|Germany|TRUE|TRUE
+Country|Country|5|Australia|TRUE|TRUE
+Age|S3_DV||All Ages|TRUE|TRUE
+Age|S3_DV|1|18-24|TRUE|TRUE
+Age|S3_DV|2|25-34|TRUE|TRUE
+Age|S3_DV|3|35-44|TRUE|TRUE
+Age|S3_DV|4|45-54|TRUE|TRUE
+Age|S3_DV|5|55-60|TRUE|TRUE
+Age|S3_DV|6|61-70|TRUE|TRUE
+Segment|SEG01||All Segments|TRUE|TRUE
+Segment|SEG01|1|Segment 1|TRUE|TRUE
+Segment|SEG02|1|Segment 2|TRUE|TRUE
+Segment|SEG03|1|Segment 3|TRUE|TRUE
+Segment|SEG04|1|Segment 4|TRUE|TRUE
+Segment|SEG05|1|Segment 5|TRUE|TRUE
+Segment|SEG06|1|Segment 6|TRUE|TRUE
