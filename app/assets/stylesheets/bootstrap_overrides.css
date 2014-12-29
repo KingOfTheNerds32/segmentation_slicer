@@ -13,3 +13,10 @@ body{
 .table-section{
   cursor:pointer;
 }
+
+table.floatThead-table {
+    border-top: none;
+    border-bottom: none;
+    background-color: #FFF;
+}
+
