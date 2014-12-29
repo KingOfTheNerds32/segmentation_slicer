@@ -8,3 +8,8 @@ body{
 .scrollit {
   float: right;
 }
+
+
+.table-section{
+  cursor:pointer;
+}
