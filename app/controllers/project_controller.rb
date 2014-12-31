@@ -72,6 +72,7 @@ class ProjectController < ApplicationController
       @metric_groups[metric_group] = metric_list
     end
 
+    mid_time = Time.now
     #Filter the data to match the filter context
     raw_data = Response.where(:project_id => @project_id)
     resp_list = raw_data.pluck(:respondent_id).uniq
@@ -106,6 +107,8 @@ class ProjectController < ApplicationController
     puts 'FINAL PEEP COUNT: ' + resp_list.count.to_s
     puts 'FINAL RECORD COUNT: ' + filtered_data.count.to_s
     puts @info.inspect
+    time_update = Time.now - mid_time
+    puts 'TIME ELAPSED FOR RESPONDENT QUERIES: ' + "#{time_update}"
 
 
     weight_var = 'Weight_Completes'
@@ -123,6 +126,7 @@ class ProjectController < ApplicationController
     end
 
 
+    mid_time = Time.now
     @banner_groups[@info[:banner]].each do |banner_point|
       ban_label = banner_point[0] 
       ban_val = banner_point[1] 
@@ -130,19 +134,30 @@ class ProjectController < ApplicationController
       
       unstructured_data[ban_label] = Hash.new
       
+      puts 'CHECKING RESPONDENTS: ' + "#{ban_label}"
       if ban_val == nil
         subgroup_filtered_data = filtered_data
       else
         resp_list = filtered_data.where(:var => ban_var, :response => ban_val).pluck(:respondent_id).uniq
         subgroup_filtered_data = filtered_data.where(:respondent_id => resp_list)
       end
-      unstructured_data[ban_var]
+      puts 'FOUND RESPONDENTS: ' + "#{ban_label}"
+      #unstructured_data[ban_var]
 
+      puts 'UNWEIGHTED BASE: ' + "#{ban_label}"
       unstructured_data[ban_label][:unweighted_base] = subgroup_filtered_data.group(:var).count
+      
+      puts 'UNWEIGHTED FREQ: ' + "#{ban_label}"
       unstructured_data[ban_label][:unweighted_freq] = subgroup_filtered_data.group(:var).where.not(:response => 0).count
+      
+      puts 'WEIGHTED BASE: ' + "#{ban_label}"
       unstructured_data[ban_label][:weighted_base] = subgroup_filtered_data.group(:var).sum(:weight)
+      
+      puts 'WEIGHTED FREQ: ' + "#{ban_label}"
       unstructured_data[ban_label][:weighted_freq] = subgroup_filtered_data.group(:var).where.not(:response => 0).sum('weight * response')
     end
+    time_update = Time.now - mid_time
+    puts 'TIME ELAPSED FOR MAIN QUERIES: ' + "#{time_update}"
 
     # unstructured_data.each do |data|
     #   puts 'LOOK HERE'
@@ -172,8 +187,8 @@ class ProjectController < ApplicationController
         end
       end
     end
-    puts 'HERE ARE THE METRIC GROUPS:'
-    puts @metric_groups.inspect
+    #puts 'HERE ARE THE METRIC GROUPS:'
+    #puts @metric_groups.inspect
     # puts @metric_groups['Segment Classification'][0]['All Countries'].inspect
     # puts @metric_groups['Segment Classification'][0]['United States'].inspect
 

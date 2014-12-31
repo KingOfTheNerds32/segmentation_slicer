@@ -20,3 +20,14 @@ table.floatThead-table {
     background-color: #FFF;
 }
 
+.subgroup-header{
+  cursor:pointer;
+  text-align: center;
+}
+.subgroup-header:hover{
+  text-decoration:underline;
+  color:blue;
+} 
+.filter-control{
+  color:red;
+}
