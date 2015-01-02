@@ -1,8 +1,8 @@
-<%= @time %>
+<%= render "timer" %>
 <br>
 
 <!-- Build left sidebar with controls for subgroups & filters -->
-<%= form_tag '/project/' + @project_id + '/calculate' do %>
+<%= form_tag '/project/' + @project_id + '/calculate', remote: true do %>
   <div class='form-group col-md-2 fixed'>
     <%= submit_tag ('Calculate' ), class: "btn btn-primary" %>
     <h3>Subgroups:</h3>
@@ -36,56 +36,10 @@
 
 
 <!--Build data table with results-->
-<div class='col-md-10 scrollit'> 
+<div class='col-md-10 scrollit' id='results_area'> 
 
   <button class='btn' id='expand'>Expand All</button>
   <button class='btn' id='collapse'>Collapse All</button>
-  <table data-toggle="table" class='table table-striped table-condensed demo'>
-    <!--Table headers (aka subgroups) -->
-    <thead>
-      <tr>
-        <th></th>
-        <% @banner_groups[@info[:banner]].each do |banner_point| %>
-          <th class='subgroup-header' data-sortable='true'><%=banner_point[0]%></th>
-        <% end %>
-      </tr>
-    </thead>  
-
-    <!-- Table results grouped into sections -->
-    <tbody>
-      <% @metric_groups.each do |key, value|%>
-        <tr class='table-section'>
-          <th colspan=<%= @banner_groups[@info[:banner]].length + 1 %>><h4><%= key %></h4></th>
-        </tr>
-        <% @metric_groups[key].each do |metric_item| %>
-          <tr>
-            <td class="col-md-6"><%= metric_item[:var] + ': ' + metric_item[:label] %></td>
-            <% @banner_groups[@info[:banner]].each do |banner_point| %>
-              <% ban_label = banner_point[0] %>
-                <% if metric_item[ban_label][:unweighted_base] == 0 || metric_item[ban_label][:unweighted_base] == nil%>
-                  <td align="center"><i>NA</i></td>
-                <% else %>
-                  <% if metric_item[ban_label][:unweighted_base] < 3 %>
-                    <td align="center"><i><%= metric_item[ban_label][:percent] %>*</i></td>
-                  <% else %>
-                    <td align="center"><%= metric_item[ban_label][:percent] %></td>
-                  <% end %>
-                <% end %>
-            <% end %>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+  <div id="results_table"><%= render "results" %></div>
 
 </div>
-
-<script>
-    function priceSorter(a, b) {
-        a = +a.substring(1); // remove $
-        b = +b.substring(1);
-        if (a > b) return 1;
-        if (a < b) return -1;
-        return 0;
-    }
-</script>

@@ -8,7 +8,9 @@ class ProjectController < ApplicationController
   def calculate
     redirect_link = '/project/' + params[:project_id]
     session[:info] = params
-    redirect_to redirect_link 
+    respond_to do |format|
+      format.html { redirect_to redirect_link }
+    end 
   end
 
   def show
@@ -195,6 +197,10 @@ class ProjectController < ApplicationController
     end_time = Time.now
     @time = end_time - start_time
     #GC::Profiler.report
+    respond_to do |format|
+      format.html
+      format.js
+    end 
   end
 
   def show_old

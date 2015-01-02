@@ -19,10 +19,19 @@ var main = function(){
       $(this)[0].selectedIndex = 0;
     });
   });
+  $(function(){
+    $('.table').floatThead();
+  });
+};
+
+var table_updater = function(){
+  $(function(){
+    $('.table').floatThead();
+  });
+  $('.table-section').click(function(){
+    $(this).nextUntil('.table-section').slideToggle(0);
+  });
 };
 
 $(document).ready(main);
-
-$(function(){
-    $('.table').floatThead();
-});
+$(document).ajaxComplete(table_updater);
