@@ -18,7 +18,6 @@ class ProjectController < ApplicationController
     GC::Profiler.clear
     start_time = Time.now
     @info = session[:info]
-
     #Handle "fresh" projects that don't have any parameters chosen yet
     if @info == nil
       @info = Hash.new
