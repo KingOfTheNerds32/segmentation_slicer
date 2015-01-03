@@ -22,6 +22,9 @@ var main = function(){
   $(function(){
     $('.table').floatThead();
   });
+  $('form').submit(function(){
+    $('#update_status').show();
+  })
 };
 
 var table_updater = function(){
@@ -30,6 +33,13 @@ var table_updater = function(){
   });
   $('.table-section').click(function(){
     $(this).nextUntil('.table-section').slideToggle(0);
+  });
+  $('#update_status').removeClass();
+
+  //Tell User that data is being updated
+  var btn = $('#update_status')
+  btn.removeClass().addClass('alert alert-success').text('Results updated!').fadeOut(1750, function(){
+    btn.removeClass().addClass('alert alert-info').text('Updating results');
   });
 };
 
