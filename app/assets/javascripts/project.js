@@ -20,7 +20,7 @@ var main = function(){
     });
   });
   $(function(){
-    $('.table').floatThead();
+    $('.table').floatThead({scrollingTop:50});
   });
   $('form').submit(function(){
     $('#update_status').show();
@@ -29,7 +29,7 @@ var main = function(){
 
 var table_updater = function(){
   $(function(){
-    $('.table').floatThead();
+    $('.table').floatThead({scrollingTop:50});
   });
   $('.table-section').click(function(){
     $(this).nextUntil('.table-section').slideToggle(0);

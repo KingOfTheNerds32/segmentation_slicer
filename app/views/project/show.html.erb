@@ -1,8 +1,8 @@
 <!-- Build left sidebar with controls for subgroups & filters -->
 <%= form_tag '/project/' + @project_id + '/calculate', remote: true do %>
-  <div class='form-group col-md-2 fixed'>
-    <%= submit_tag ('Calculate' ), class: "btn btn-primary", :id => 'Calculate' %>
-    <br><br><div id='update_status' class="alert alert-info" style="display: none;">
+  <div class='form-group col-md-2 fixed panel left-sidebar'><br>
+    <%= submit_tag ('Update' ), class: "btn btn-primary form-btn", :id => 'Calculate'%>
+    <div id='update_status' class="alert alert-info" style="display: none;">
       Updating results
     </div>
     <h3>Subgroups:</h3>
@@ -16,7 +16,7 @@
       <% end %>
     </select><br>
     <!--This actually submits the page, but moving it out of the form would fix this -->
-    <button id='filter_clear' class='btn'>Clear All Filters</button>
+    <button id='filter_clear' class='btn form-btn'>Clear All Filters</button>
     <h3>Filters:</h3>
     <% @filter_groups.each do |key, value| %>
         <%= key %>
