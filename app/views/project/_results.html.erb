@@ -12,7 +12,7 @@
   <!-- Table results grouped into sections -->
   <tbody>
     <% @metric_groups.each do |key, value|%>
-      <tr class='table-section'>
+      <tr class='table-section accordian-toggle'>
         <th colspan=<%= @banner_groups[@info[:banner]].length + 1 %>><h4><%= key %></h4></th>
       </tr>
       <% @metric_groups[key].each do |metric_item| %>

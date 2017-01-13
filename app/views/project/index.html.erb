@@ -1,8 +1,14 @@
 <h1>Projects</h1>
-<table>
+<table class='table'>
+  <tr>
+    <th>Project Number</th>
+    <th>Project Name</th>
+    <th>Admin</th>
+  </tr>
   <% @projects.each do |project| %>
     <tr>
       <td><a href='/project/<%= project.project_id %>'><%= project.project_id %></a></td>
+      <td><%= project.project_name %></td>
       <td><a href='/project/<%= project.project_id %>/admin'>Admin</a></td>
     </tr>
   <% end %>

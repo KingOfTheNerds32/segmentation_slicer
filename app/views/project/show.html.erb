@@ -1,10 +1,10 @@
 <!-- Build left sidebar with controls for subgroups & filters -->
 <%= form_tag '/project/' + @project_id + '/calculate', remote: true do %>
   <div class='form-group col-md-2 fixed panel left-sidebar'><br>
-    <%= submit_tag ('Update' ), class: "btn btn-primary form-btn", :id => 'Calculate'%>
     <div id='update_status' class="alert alert-info" style="display: none;">
       Updating results
     </div>
+    <%= submit_tag ('Update' ), class: "btn btn-primary form-btn", :id => 'Calculate'%>
     <h3>Subgroups:</h3>
     <select name='banner' class='form-control'>
       <% @banner_groups.each do |key, value| %>

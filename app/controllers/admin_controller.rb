@@ -10,47 +10,19 @@ class AdminController < ApplicationController
   def update
     start_time = Time.now
     @project_id = params[:project_id]
+    puts params
 
     #Update Filter table to contain info for project
     filter_path = params[:filters]
-    if filter_path
-      puts 'Updating FILTERS with ' + filter_path
-      filter_data = CSV.read(filter_path, col_sep: '|', converters: :numeric, headers:true)
-      current_filters = Filter.where(:project_id => @project_id)
-      current_filters.destroy_all
 
-      filter_data.each do |filter|
-        # filter_hash = 
-        #   {
-        #     :project_id => @project_id, 
-        #     :group => filter['group'], 
-        #     :var => filter['var'], 
-        #     :label => filter['label'], 
-        #     :filter => filter['filter'], 
-        #     :banner => filter['banner']
-        #     }.tap do |filter_val_hash|
-        #       filter_val_hash[:filter_val] = filter['filter_val'] if filter['filter_val']
-        #     end
-        filter[:project_id] = @project_id
-
-        puts filter.inspect
-        # puts filter_hash
-        Filter.create!(filter.to_hash)
-      end
+    if not filter_path.blank?
+      process_filter(filter_path)
     end
 
     #Update Metric table to contain info for project
     metric_path = params[:metrics]
-    if metric_path
-      puts 'Updating METRICS with ' + metric_path
-      metric_data = CSV.read(metric_path, col_sep: '|', converters: :numeric, headers:true)
-      current_metrics = Metric.where(:project_id => @project_id)
-      current_metrics.destroy_all
-
-      metric_data.each do |metric|
-        metric['project_id'] = @project_id
-        Metric.create!(metric.to_hash)
-      end
+    if not metric_path.blank?
+      metric_path(metric_path)
     end
 
     project_info = Project.find_by project_id: @project_id
@@ -68,31 +40,8 @@ class AdminController < ApplicationController
 
     data_path = params[:data] #'/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
     puts data_path
-    if data_path
-      puts 'got a file'
-      response_data = CSV.read(data_path, col_sep: '|', converters: :numeric, headers:true)
-      current_responses = Response.where(:project_id => @project_id)
-      current_responses.destroy_all
-
-      test = response_data
-      puts 'LOOK HERE BOZO!'
-      puts test
-
-      response_data.each do |resp|
-        resp_id = resp['Respondent_ID']
-        resp_weight = resp['Weight_Completes']
-        dimensions_list.each do |dimension|
-          if resp[dimension]
-            r = Response.new
-            r.respondent_id = resp_id
-            r.weight = resp_weight
-            r.project_id = @project_id
-            r.var = dimension
-            r.response = resp[dimension]
-            r.save
-          end
-        end
-      end
+    if not data_path.blank?
+      process_response(data_path)
     end
 
     end_time = Time.now
@@ -104,6 +53,59 @@ class AdminController < ApplicationController
     redirect_to  redirect_link
   end
 
+  def process_filter(filter_path)
+    puts 'Updating FILTERS with ' + filter_path
+    filter_data = CSV.read(filter_path, col_sep: '|', converters: :numeric, headers:true)
+    current_filters = Filter.where(:project_id => @project_id)
+    current_filters.destroy_all
+
+    filter_data.each do |filter|
+      filter[:project_id] = @project_id
+
+      puts filter.inspect
+      # puts filter_hash
+      Filter.create!(filter.to_hash)
+    end
+  end
+
+  def process_metric(metric_path)
+    puts 'Updating METRICS with ' + metric_path
+    metric_data = CSV.read(metric_path, col_sep: '|', converters: :numeric, headers:true)
+    current_metrics = Metric.where(:project_id => @project_id)
+    current_metrics.destroy_all
+
+    metric_data.each do |metric|
+      metric['project_id'] = @project_id
+      Metric.create!(metric.to_hash)
+    end
+  end
+
+  def process_response(data_path)
+    puts 'got a file'
+    response_data = CSV.read(data_path, col_sep: '|', converters: :numeric, headers:true)
+    current_responses = Response.where(:project_id => @project_id)
+    current_responses.destroy_all
+
+    test = response_data
+    puts 'LOOK HERE BOZO!'
+    puts test
+
+    response_data.each do |resp|
+      resp_id = resp['Respondent_ID']
+      resp_weight = resp['Weight_Completes']
+      dimensions_list.each do |dimension|
+        if resp[dimension]
+          r = Response.new
+          r.respondent_id = resp_id
+          r.weight = resp_weight
+          r.project_id = @project_id
+          r.var = dimension
+          r.response = resp[dimension]
+          r.save
+        end
+      end
+    end
+  end
 
   def filter_download
     @project_id = params[:project_id]
