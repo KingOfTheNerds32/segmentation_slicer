@@ -167,6 +167,8 @@ class ProjectController < ApplicationController
 
     @metric_groups.each do |key, value|
       @metric_groups[key].each do |metric_item|
+        max_val = 0
+        min_val = 100
         @banner_groups[@info[:banner]].each do |banner_point|
           ban_label = banner_point[0]
           ban_var = banner_point[2]
@@ -184,7 +186,20 @@ class ProjectController < ApplicationController
               metric_ban[:full_percent] = (metric_ban[:weighted_freq].to_f / metric_ban[:weighted_base].to_f) * 100
               metric_ban[:percent] = metric_ban[:full_percent].round(0)
             end
-          end
+
+            if metric_ban[:full_percent] > max_val
+                max_val = metric_ban[:full_percent]
+              end
+              if metric_ban[:full_percent] < min_val
+                min_val = metric_ban[:full_percent]
+              end
+            end
+        end
+        metric_item[:full_range] = max_val - min_val
+        metric_item[:range] = metric_item[:full_range].round(0)
+        if metric_item[:full_range] < 0
+          metric_item[:full_range] = '-'
+          metric_item[:range] = '-'
         end
       end
     end
@@ -200,6 +215,7 @@ class ProjectController < ApplicationController
       format.html
       format.js
     end 
+
   end
 
   def show_old

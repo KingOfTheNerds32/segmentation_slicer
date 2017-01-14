@@ -1,22 +1,24 @@
-<table id='results_table' data-toggle="table" class='table table-striped table-condensed demo'>
+<table id='results_table' data-toggle="table" class='table table-striped table-condensed demo table-hover'>
   <!--Table headers (aka subgroups) -->
   <thead>
     <tr>
-      <th></th>
+      <th class="col-md-6"></th>
       <% @banner_groups[@info[:banner]].each do |banner_point| %>
-        <th class='subgroup-header' data-sortable='true'><%=banner_point[0]%></th>
+        <th class='subgroup-header result_table_col' data-sortable='true'><%=banner_point[0]%></th>
       <% end %>
+      <th class='subgroup-header' data-sortable='true'>Range</th>
     </tr>
   </thead>  
 
   <!-- Table results grouped into sections -->
   <tbody>
     <% @metric_groups.each do |key, value|%>
-      <tr class='table-section accordian-toggle'>
+      <tr class='table-section'>
         <th colspan=<%= @banner_groups[@info[:banner]].length + 1 %>><h4><%= key %></h4></th>
+        <th class="range"></th>
       </tr>
       <% @metric_groups[key].each do |metric_item| %>
-        <tr>
+        <tr class='data-row'>
           <td class="col-md-6"><%= metric_item[:var] + ': ' + metric_item[:label] %></td>
           <% @banner_groups[@info[:banner]].each do |banner_point| %>
             <% ban_label = banner_point[0] %>
@@ -24,12 +26,13 @@
                 <td align="center"><i>NA</i></td>
               <% else %>
                 <% if metric_item[ban_label][:unweighted_base] < 3 %>
-                  <td align="center"><i><%= metric_item[ban_label][:percent] %>*</i></td>
+                  <td class="result-cell" align="center"><i><%= metric_item[ban_label][:percent] %>*</i></td>
                 <% else %>
-                  <td align="center"><%= metric_item[ban_label][:percent] %></td>
+                  <td class="result-cell" align="center"><%= metric_item[ban_label][:percent] %></td>
                 <% end %>
               <% end %>
           <% end %>
+          <td class="range" align="center"><%= metric_item[:range] %></td>
         </tr>
       <% end %>
     <% end %>
