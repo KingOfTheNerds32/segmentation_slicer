@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150102062746) do
+ActiveRecord::Schema.define(version: 20170115220814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,9 @@ ActiveRecord::Schema.define(version: 20150102062746) do
     t.integer "emp5"
   end
 
+# Could not dump table "respondents" because of following StandardError
+#   Unknown type 'jsonb' for column 'respondent'
+
   create_table "responses", force: true do |t|
     t.integer  "project_id"
     t.string   "respondent_id"
@@ -73,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150102062746) do
     t.datetime "updated_at"
   end
 
+  add_index "responses", ["project_id"], name: "index_responses_on_project_id", using: :btree
   add_index "responses", ["respondent_id"], name: "index_responses_on_respondent_id", using: :btree
   add_index "responses", ["response"], name: "index_responses_on_response", using: :btree
   add_index "responses", ["var"], name: "index_responses_on_var", using: :btree

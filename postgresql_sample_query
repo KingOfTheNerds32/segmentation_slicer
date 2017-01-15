@@ -1,0 +1,5 @@
+Select Count(*), var from responses where respondent_id in (
+	Select respondent ->> 'RespID' from respondents where respondent ->> 'Country' = '1'
+)
+and project_id = 112358
+group by var

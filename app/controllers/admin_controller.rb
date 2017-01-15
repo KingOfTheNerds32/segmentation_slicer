@@ -22,7 +22,7 @@ class AdminController < ApplicationController
     #Update Metric table to contain info for project
     metric_path = params[:metrics]
     if not metric_path.blank?
-      metric_path(metric_path)
+      process_metric(metric_path)
     end
 
     project_info = Project.find_by project_id: @project_id
@@ -41,7 +41,7 @@ class AdminController < ApplicationController
     data_path = params[:data] #'/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
     puts data_path
     if not data_path.blank?
-      process_response(data_path)
+      process_response(data_path, dimensions_list)
     end
 
     end_time = Time.now
@@ -80,7 +80,7 @@ class AdminController < ApplicationController
     end
   end
 
-  def process_response(data_path)
+  def process_response(data_path, dimensions_list)
     puts 'got a file'
     response_data = CSV.read(data_path, col_sep: '|', converters: :numeric, headers:true)
     current_responses = Response.where(:project_id => @project_id)
