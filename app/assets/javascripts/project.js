@@ -19,11 +19,6 @@ var main = function() {
       $(this)[0].selectedIndex = 0;
     });
   });
-  $(function() {
-    $('.table').floatThead({
-      scrollingTop: 50
-    });
-  });
   $('form').submit(function() {
     $('#update_status').show();
   })
@@ -31,11 +26,6 @@ var main = function() {
 };
 
 var table_updater = function() {
-  $(function() {
-    $('.table').floatThead({
-      scrollingTop: 50
-    });
-  });
   $('.table-section').click(function() {
     $(this).nextUntil('.table-section').slideToggle(0);
   });
@@ -89,7 +79,7 @@ var table_formatter = function() {
       });
     };
   });
-}
+};
 
 $(document).ready(main);
 $(document).ajaxComplete(table_updater);

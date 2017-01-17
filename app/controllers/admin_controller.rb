@@ -36,7 +36,7 @@ class AdminController < ApplicationController
     # #Update Response table to contain info for project. Limit to non-null & metrics used in the filter and metric tables
     filter_vars = Filter.where(:project_id => @project_id).pluck(:var).uniq
     metric_vars = Metric.where(:project_id => @project_id).pluck(:var).uniq
-    dimensions_list = filter_vars + metric_vars
+    dimensions_list = (filter_vars + metric_vars).uniq
 
     data_path = params[:data] #'/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
     puts data_path

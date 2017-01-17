@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115220814) do
+ActiveRecord::Schema.define(version: 20170116213050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,9 @@ ActiveRecord::Schema.define(version: 20170115220814) do
     t.datetime "updated_at"
   end
 
+  add_index "responses", ["project_id", "respondent_id"], name: "index_responses_p_resp", using: :btree
+  add_index "responses", ["project_id", "var", "respondent_id", "response"], name: "index_responses_p_var_resp_r", unique: true, using: :btree
+  add_index "responses", ["project_id", "var", "respondent_id"], name: "index_responses_p_var_resp", unique: true, using: :btree
   add_index "responses", ["project_id"], name: "index_responses_on_project_id", using: :btree
   add_index "responses", ["respondent_id"], name: "index_responses_on_respondent_id", using: :btree
   add_index "responses", ["response"], name: "index_responses_on_response", using: :btree
