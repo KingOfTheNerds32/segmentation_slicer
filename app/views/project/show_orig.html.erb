@@ -1,0 +1,47 @@
+<!-- Build left sidebar with controls for subgroups & filters -->
+<%= form_tag '/project/' + @project_id + '/calculate', remote: true do %>
+  <div class='form-group col-md-2 fixed panel left-sidebar'><br>
+    <div id='update_status' class="alert alert-info" style="display: none;">
+      Updating results
+    </div>
+    <%= submit_tag ('Update' ), class: "btn btn-primary form-btn", :id => 'Calculate'%>
+    <h3>Subgroups:</h3>
+    <select name='banner' class='form-control'>
+      <% @banner_groups.each do |key, value| %>
+        <% if key == @info['banner'] %>
+          <option selected value=<%= key %> ><%= key %></option>
+        <% else %>
+          <option value=<%= key %> ><%= key %></option>
+        <% end %>
+      <% end %>
+    </select><br>
+    <!--This actually submits the page, but moving it out of the form would fix this -->
+    <button id='filter_clear' class='btn form-btn'>Clear All Filters</button>
+    <h3>Filters:</h3>
+    <% @filter_groups.each do |key, value| %>
+        <%= key %>
+        <select name=<%= key %> class='form-control filter-control'>
+          <% @filter_groups[key].each do |filter_item| %>
+            <% if filter_item[2] + ',' + filter_item[1].to_s == @info[key] %>
+              <option selected value=<%= filter_item[2] + ',' + filter_item[1].to_s %> ><%= filter_item[0] %></option>
+            <% else %>
+              <option value=<%= filter_item[2] + ',' + filter_item[1].to_s  %> ><%= filter_item[0] %></option>
+            <% end %>
+          <% end %> 
+        </select>
+        <br>
+    <% end %>
+    <%= render "timer" %>
+  </div>
+<% end %>
+
+
+<!--Build data table with results-->
+<div class='col-md-10 scrollit' id='results_area'> 
+  <button class='btn' id='expand'>Expand All</button>
+  <button class='btn' id='collapse'>Collapse All</button>
+  <div id="results_table_container">
+    <%= render "results" %>
+  </div>
+
+</div>

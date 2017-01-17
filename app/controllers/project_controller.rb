@@ -17,24 +17,16 @@ class ProjectController < ApplicationController
     GC::Profiler.enable
     GC::Profiler.clear
     start_time = Time.now
-    @info = session[:info]
-    #Handle "fresh" projects that don't have any parameters chosen yet
+
     if @info == nil
       @info = Hash.new
     end
 
-    #General housekeeping
     @project_id = params[:project_id]
     project_info = Project.find_by project_id: @project_id
     project_name = project_info.project_name
     @full_project_name = @project_id.to_s + ": " + project_name
 
-    #Load the data into memory
-    #file_path = '/Users/michaellarner/Documents/src/segmentation_slicer/FlatTest.csv'
-    #raw_data = CSV.read(file_path, col_sep: ',', converters: :numeric, headers:true)
-
-
-    #Build the filters for the project
     @filters = Filter.where(:project_id => @project_id, :filter => true)
     @filter_groups = Hash.new
     @filters.pluck(:group).uniq.each do |filter_group|
@@ -46,7 +38,6 @@ class ProjectController < ApplicationController
       #puts @filter_groups[filter_group].inspect
     end
 
-    #Build the banners for the project
     @banners = Filter.where(:project_id => @project_id, :banner => true)
     @banner_groups = Hash.new
     @banners.pluck(:group).uniq.each do |banner_group|
@@ -56,21 +47,18 @@ class ProjectController < ApplicationController
       end
       @banner_groups[banner_group] = banner_list 
     end
-    puts 'THESE ARE THE BANNER GROUPS: '
-    puts @banner_groups.inspect
 
-    #Build the Metrics for the project
-    @metrics = Metric.where(:project_id => @project_id)
+
+    @metrics = Metric.where(:project_id => @project_id).pluck(:bucket, :var, :label)
     @metric_groups = Hash.new
-    @metrics.pluck(:bucket).uniq.each do |metric_group|
-      metric_list = []
-      @metrics.where(:bucket => metric_group).each do |metric_item|
-        metric = Hash.new()
-        metric[:label] = metric_item.label
-        metric[:var] = metric_item.var
-        metric_list << metric
+    @metrics.each do |metric_item|
+      metric = Hash.new()
+      metric[:label] = metric_item[2]
+      metric[:var] = metric_item[1]
+      if @metric_groups.key?(metric_item[0]) == false
+        @metric_groups[metric_item[0]] = []
       end
-      @metric_groups[metric_group] = metric_list
+      @metric_groups[metric_item[0]].push(metric)
     end
 
     mid_time = Time.now
@@ -81,7 +69,7 @@ class ProjectController < ApplicationController
     puts 'UNFILTERED RESPONDENT COUNT: ' + resp_list.count.to_s
 
     @filters.pluck(:group).uniq.each do |filter_group|
-      if @info.has_key? (filter_group)
+      if @info.key?(filter_group)
 
         puts 'NOW CHECKING FILTER FOR: ' + filter_group
 
@@ -102,111 +90,6 @@ class ProjectController < ApplicationController
         end
       end
     end
-
-    filtered_data = raw_data.where(:respondent_id => resp_list)
-
-    puts 'FINAL PEEP COUNT: ' + resp_list.count.to_s
-    puts 'FINAL RECORD COUNT: ' + filtered_data.count.to_s
-    puts @info.inspect
-    time_update = Time.now - mid_time
-    puts 'TIME ELAPSED FOR RESPONDENT QUERIES: ' + "#{time_update}"
-
-
-    weight_var = 'Weight_Completes'
-    puts @banner_groups[@info[:banner]].inspect
-
-    #Perform calculations
-    #Iterate over each metric_item in each metric_group
-    counter = 0
-
-    # Go through each banner point (including 'All')
-    unstructured_data = Hash.new
-
-    if @info[:banner] == nil
-      @info[:banner] = @banner_groups.first[0]
-    end
-
-
-    mid_time = Time.now
-    @banner_groups[@info[:banner]].each do |banner_point|
-      ban_label = banner_point[0] 
-      ban_val = banner_point[1] 
-      ban_var = banner_point[2]
-      
-      unstructured_data[ban_label] = Hash.new
-      
-      puts 'CHECKING RESPONDENTS: ' + "#{ban_label}"
-      if ban_val == nil
-        subgroup_filtered_data = filtered_data
-      else
-        resp_list = filtered_data.where(:var => ban_var, :response => ban_val).pluck(:respondent_id).uniq
-        subgroup_filtered_data = filtered_data.where(:respondent_id => resp_list)
-      end
-      puts 'FOUND RESPONDENTS: ' + "#{ban_label}"
-      #unstructured_data[ban_var]
-
-      puts 'UNWEIGHTED BASE: ' + "#{ban_label}"
-      unstructured_data[ban_label][:unweighted_base] = subgroup_filtered_data.group(:var).count
-      
-      puts 'UNWEIGHTED FREQ: ' + "#{ban_label}"
-      unstructured_data[ban_label][:unweighted_freq] = subgroup_filtered_data.group(:var).where.not(:response => 0).count
-      
-      puts 'WEIGHTED BASE: ' + "#{ban_label}"
-      unstructured_data[ban_label][:weighted_base] = subgroup_filtered_data.group(:var).sum(:weight)
-      
-      puts 'WEIGHTED FREQ: ' + "#{ban_label}"
-      unstructured_data[ban_label][:weighted_freq] = subgroup_filtered_data.group(:var).where.not(:response => 0).sum('weight * response')
-    end
-    time_update = Time.now - mid_time
-    puts 'TIME ELAPSED FOR MAIN QUERIES: ' + "#{time_update}"
-
-    # unstructured_data.each do |data|
-    #   puts 'LOOK HERE'
-    #   puts data.inspect
-    # end
-
-    @metric_groups.each do |key, value|
-      @metric_groups[key].each do |metric_item|
-        max_val = 0
-        min_val = 100
-        @banner_groups[@info[:banner]].each do |banner_point|
-          ban_label = banner_point[0]
-          ban_var = banner_point[2]
-          metric_item[ban_label] = Hash.new
-          metric_ban = metric_item[ban_label]
-          metric_ban[:unweighted_base] = unstructured_data[ban_label][:unweighted_base][metric_item[:var]]
-          metric_ban[:weighted_base] = unstructured_data[ban_label][:weighted_base][metric_item[:var]]
-          metric_ban[:unweighted_freq] = unstructured_data[ban_label][:unweighted_freq][metric_item[:var]]
-          metric_ban[:weighted_freq] = unstructured_data[ban_label][:weighted_freq][metric_item[:var]]
-          if metric_ban[:unweighted_base] != 0 && metric_ban[:unweighted_base] != nil
-            if metric_ban[:weighted_freq] == nil
-              metric_ban[:full_percent] = 0
-              metric_ban[:percent] = 0
-            else
-              metric_ban[:full_percent] = (metric_ban[:weighted_freq].to_f / metric_ban[:weighted_base].to_f) * 100
-              metric_ban[:percent] = metric_ban[:full_percent].round(0)
-            end
-
-            if metric_ban[:full_percent] > max_val
-                max_val = metric_ban[:full_percent]
-              end
-              if metric_ban[:full_percent] < min_val
-                min_val = metric_ban[:full_percent]
-              end
-            end
-        end
-        metric_item[:full_range] = max_val - min_val
-        metric_item[:range] = metric_item[:full_range].round(0)
-        if metric_item[:full_range] < 0
-          metric_item[:full_range] = '-'
-          metric_item[:range] = '-'
-        end
-      end
-    end
-    #puts 'HERE ARE THE METRIC GROUPS:'
-    #puts @metric_groups.inspect
-    # puts @metric_groups['Segment Classification'][0]['All Countries'].inspect
-    # puts @metric_groups['Segment Classification'][0]['United States'].inspect
 
     end_time = Time.now
     @time = end_time - start_time
